@@ -1,0 +1,19 @@
+{
+  "name": "material-ui-markdown-editor",
+  "version": "1.0.0",
+  "description": "React.js Markdown editor component based on material-ui",
+  "main": "lib/MuMdEditor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diedsmiling/material-ui-markdown-editor.git"
+  },
+  "author": "Lazarev ALexandr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diedsmiling/material-ui-markdown-editor/issues"
+  },
+  "homepage": "https://github.com/diedsmiling/material-ui-markdown-editor#readme"
+}
