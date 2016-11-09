@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run develop",
-    "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
+    "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --hot --colors --inline",
     "build": "webpack --config webpack-prod.config.js --progress --colors --inline"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
+    "react-hot-loader": "^3.0.0-beta.6",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },

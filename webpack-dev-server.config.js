@@ -4,7 +4,11 @@ const srcPath = path.join(__dirname, 'src', 'example')
 const buildPath = path.join(__dirname, 'example')
 
 const config = {
-  entry: path.join(srcPath, 'example.js'),
+  entry: [
+    'webpack/hot/dev-server',
+    'webpack/hot/only-dev-server',
+    path.join(srcPath, 'example.js')
+  ],
   output: {
     path: buildPath,
     filename: 'bundle.js'
@@ -12,7 +16,7 @@ const config = {
   devServer: {
     contentBase: 'example',
     devtool: 'eval',
-    hot: false,
+    hot: true,
     inline: true,
     port: 3000,
     outputPath: buildPath
@@ -22,10 +26,10 @@ const config = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015']
-        }
+        loaders: [
+          'react-hot-loader/webpack',
+          'babel?presets[]=react,presets[]=es2015'
+        ]
       }
     ]
   }
