@@ -4,3 +4,7 @@ logs
 
 # Dependency directory
 node_modules
+
+#budnle
+example/bundle.js
+dist
