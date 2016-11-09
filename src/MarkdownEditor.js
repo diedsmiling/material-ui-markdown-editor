@@ -1,7 +1,22 @@
 import React from 'react'
+import Codemirror from 'react-codemirror'
 
-const MarkdownEditor = () => (
-  <div>Material-UI Markdown Editor</div>
-)
-
-export default MarkdownEditor
+export default class MarkdownEditor extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      code: '// Code'
+    }
+  }
+  updateCode(newCode) {
+    this.setState({
+      code: newCode
+    })
+  }
+  render() {
+    const options = {
+      lineNumbers: true
+    }
+    return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+  }
+}
