@@ -14,9 +14,10 @@ export default class MarkdownEditor extends React.Component {
     })
   }
   render() {
+    console.log('ad')
     const options = {
       lineNumbers: true
     }
-    return <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+    return <Codemirror mode="markdown" value={this.state.code} onChange={this.updateCode} options={options} />
   }
 }
