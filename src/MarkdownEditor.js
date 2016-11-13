@@ -1,5 +1,7 @@
 import React from 'react'
 import Codemirror from 'react-codemirror'
+import styles from '../node_modules/codemirror/lib/codemirror.css'
+console.log(styles)
 
 export default class MarkdownEditor extends React.Component {
   constructor() {

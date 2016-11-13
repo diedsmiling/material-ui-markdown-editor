@@ -30,6 +30,10 @@ const config = {
           'react-hot-loader/webpack',
           'babel?presets[]=react,presets[]=es2015'
         ]
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       }
     ]
   }
