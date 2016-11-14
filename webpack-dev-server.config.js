@@ -28,12 +28,12 @@ const config = {
         exclude: /(node_modules)/,
         loaders: [
           'react-hot-loader/webpack',
-          'babel?presets[]=react,presets[]=es2015'
+          'babel?presets[]=react,presets[]=es2015,plugins[]=babel-plugin-transform-class-properties'
         ]
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader"
+        loader: 'style-loader!css-loader'
       }
     ]
   }
