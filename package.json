@@ -4,8 +4,8 @@
   "description": "React.js Markdown editor component based on material-ui",
   "main": "lib/MuMdEditor.js",
   "scripts": {
-    "test": "BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava",
-    "test:dev": "BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava --watch --verbose",
+    "test": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava",
+    "test:dev": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava --watch --verbose",
     "start": "npm run develop",
     "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --hot --colors --inline",
     "build": "webpack --config webpack-prod.config.js --progress --colors --inline"

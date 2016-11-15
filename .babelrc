@@ -7,7 +7,7 @@
         [
           "babel-plugin-webpack-loaders",
           {
-            "config": "../webpack-ava.config.js",
+            "config": "${CONFIG}",
             "verbose": false,
           }
         ]
