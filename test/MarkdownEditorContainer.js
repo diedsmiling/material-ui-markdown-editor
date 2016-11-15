@@ -1,10 +1,20 @@
 import React from 'react'
 import test from 'ava' // eslint-disable-line
 import { shallow } from 'enzyme' // eslint-disable-line
-import MarkdownEditorContainer from '../src/MarkdownEditor'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MarkdownEditorContainer from '../src/MarkdownEditor/MarkdownEditorContainer'
+import MarkdownEditor from '../src/MarkdownEditor/MarkdownEditor'
 
-test('Foo', (t) => {
+test('Should contain MarkdownEditor component ', (t) => {
   const wrapper = shallow(<MarkdownEditorContainer />)
-  console.log(wrapper.debug())
-  t.pass()
+  t.true(wrapper.contains(<MarkdownEditor />))
+})
+
+test('Should wrap in MuiThemeProvider if corespinding prop is passed', (t) => {
+  const wrapper = shallow(<MarkdownEditorContainer wrapInTheme />)
+  t.true(wrapper.containsMatchingElement(
+    <MuiThemeProvider>
+      <MarkdownEditor />
+    </MuiThemeProvider>
+  ))
 })
