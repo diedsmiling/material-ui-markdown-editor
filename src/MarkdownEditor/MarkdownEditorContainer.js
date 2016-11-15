@@ -8,7 +8,7 @@ class MarkdownEditorContainer extends Component {
     wrapInTheme: PropTypes.bool
   }
   componentDidMount() {
-    if (this.props.wrapInTheme) {
+    if (!this.props.wrapInTheme) {
       injectTapEventPlugin()
     }
   }

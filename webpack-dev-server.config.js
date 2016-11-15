@@ -7,7 +7,7 @@ const config = {
   entry: [
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
-    path.join(srcPath, 'example.js')
+    path.join(srcPath, 'index.js')
   ],
   output: {
     path: buildPath,

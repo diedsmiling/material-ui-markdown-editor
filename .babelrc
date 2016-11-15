@@ -1,0 +1,17 @@
+{
+  "presets": ["es2015", "react"],
+  "plugins": "babel-plugin-transform-class-properties",
+  "env": {
+    "AVA": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "../webpack-ava.config.js",
+            "verbose": false,
+          }
+        ]
+      ]
+    }
+  }
+}
