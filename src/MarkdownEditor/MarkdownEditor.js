@@ -1,5 +1,6 @@
 import React from 'react'
 import Codemirror from 'react-codemirror'
+import ToolbarPanel from './ToolbarPanel'
 import styles from '../../node_modules/codemirror/lib/codemirror.css' //eslint-disable-line
 
 export default class MarkdownEditor extends React.Component {
@@ -20,6 +21,7 @@ export default class MarkdownEditor extends React.Component {
     }
     return (
       <div>
+        <ToolbarPanel />
         <Codemirror
           mode="markdown"
           value={this.state.code}
