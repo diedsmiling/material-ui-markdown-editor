@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton'
 
 const Button = props => (
   <FlatButton
-    style={{ 'min-width': '2rem' }}
+    style={{ minWidth: '36px' }}
     icon={props.icon}
   />
 )
