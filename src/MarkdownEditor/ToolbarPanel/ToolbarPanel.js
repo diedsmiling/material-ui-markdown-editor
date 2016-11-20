@@ -2,18 +2,16 @@ import React from 'react'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import Bold from 'material-ui/svg-icons/editor/format-bold'
 import Italic from 'material-ui/svg-icons/editor/format-italic'
-import FlatButton from 'material-ui/FlatButton'
 import { lightBlack } from 'material-ui/styles/colors'
+import Button from './Button'
 
 const ToolbarPanel = () => (
   <Toolbar>
     <ToolbarGroup firstChild>
-      <FlatButton
-        style={{ 'min-width': '2rem' }}
+      <Button
         icon={<Bold color={lightBlack} />}
       />
-      <FlatButton
-        style={{ 'min-width': '2rem' }}
+      <Button
         icon={<Italic color={lightBlack} />}
       />
       <ToolbarSeparator />
