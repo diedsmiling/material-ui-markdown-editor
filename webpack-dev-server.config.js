@@ -21,6 +21,7 @@ const config = {
     port: 3000,
     outputPath: buildPath
   },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
