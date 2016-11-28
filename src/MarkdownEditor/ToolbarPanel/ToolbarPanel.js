@@ -4,12 +4,13 @@ import Bold from 'material-ui/svg-icons/editor/format-bold'
 import Italic from 'material-ui/svg-icons/editor/format-italic'
 import { lightBlack } from 'material-ui/styles/colors'
 import Button from './Button'
+import { formatBold } from '../helpers/formatting'
 
 const ToolbarPanel = props => (
   <Toolbar>
     <ToolbarGroup firstChild>
       <Button
-        onClick={function() { console.log(props)}}
+        onClick={function clickBold() { formatBold(props.cm) }}
         icon={<Bold color={lightBlack} />}
       />
       <Button
