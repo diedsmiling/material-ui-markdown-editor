@@ -4,19 +4,19 @@ const incrementPosition = (summand, position) => {
   return pos
 }
 
-export const formatBold = (cm) => {
+const format = signature => (cm) => {
   const { codeMirror } = cm
-
   const cursorPositions = [
     codeMirror.getCursor('start'),
     codeMirror.getCursor('end')
   ]
 
-  codeMirror.replaceSelection(`**${codeMirror.getSelection()}**`)
-  codeMirror.setSelection(...cursorPositions.map(pos => incrementPosition(2, pos)))
+  codeMirror.replaceSelection(signature + codeMirror.getSelection() + signature)
+  codeMirror.setSelection(
+    ...cursorPositions.map(pos => incrementPosition(signature.length, pos))
+  )
   codeMirror.focus()
 }
 
-export const formatItalic = (cm) => {
-  console.log(cm)
-}
+export const formatBold = format('**')
+export const formatItalic = format('*')
