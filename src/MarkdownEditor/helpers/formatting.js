@@ -8,21 +8,26 @@ const getPlaceholderBySignature = signature => (
   { '**': 'Strong text', '*': 'Emphasized text' }[signature]
 )
 
+const isEmpty = string => string.length === 0
+
+const getText = (signature, text) =>
+  isEmpty(text) ? getPlaceholderBySignature(signature) : text
+
+const getEndPosition = (codeMirror, text, selection) => {
+  const end = codeMirror.getCursor('end')
+  return text === selection ? end : incrementPosition(text.length, end)
+}
+
 const format = signature => (cm) => {
   const { codeMirror } = cm
-  const cursorPositions = [
-    codeMirror.getCursor('start'),
-    codeMirror.getCursor('end')
-  ]
-  let text = codeMirror.getSelection()
-  if (text.length === 0) {
-    text = getPlaceholderBySignature(signature)
-    cursorPositions[0] = incrementPosition(text.length, cursorPositions[0])
-  }
+  const selection = codeMirror.getSelection()
+  const start = codeMirror.getCursor('start')
+  const text = getText(signature, selection)
+  const end = getEndPosition(codeMirror, text, selection)
 
   codeMirror.replaceSelection(signature + text + signature)
   codeMirror.setSelection(
-    ...cursorPositions.map(pos => incrementPosition(signature.length, pos))
+    ...[start, end].map(pos => incrementPosition(signature.length, pos))
   )
 
   codeMirror.focus()
