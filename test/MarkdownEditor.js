@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import Markdown from '../src/MarkdownEditor/MarkdownEditor'
 import Toolbar from '../src/MarkdownEditor/ToolbarPanel/ToolbarPanel'
 
-test('Should render Toolbaer', (t) => {
+test('Should render Toolbar', (t) => {
   const wrapper = shallow(<Markdown />)
   t.true(wrapper.contains(<Toolbar />))
 })
