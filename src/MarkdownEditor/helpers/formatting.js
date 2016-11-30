@@ -1,5 +1,5 @@
 const incrementPosition = (summand, position) => {
-  const pos = position
+  const pos = Object.assign({}, position)
   pos.ch += summand
   return pos
 }
@@ -13,17 +13,13 @@ const isEmpty = string => string.length === 0
 const getText = (signature, text) =>
   isEmpty(text) ? getPlaceholderBySignature(signature) : text
 
-const getEndPosition = (codeMirror, text, isNotPlaceholder) => {
-  const end = codeMirror.getCursor('end')
-  return isNotPlaceholder ? end : incrementPosition(text.length, end)
-}
-
 const format = signature => (cm) => {
   const { codeMirror } = cm
+
   const selection = codeMirror.getSelection()
   const text = getText(signature, selection)
   const start = codeMirror.getCursor('start')
-  const end = getEndPosition(codeMirror, text, text === selection)
+  const end = incrementPosition(text.length, start)
 
   codeMirror.replaceSelection(signature + text + signature)
   codeMirror.setSelection(
