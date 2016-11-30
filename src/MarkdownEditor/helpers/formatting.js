@@ -10,14 +10,11 @@ const getPlaceholderBySignature = signature => (
 
 const isEmpty = string => string.length === 0
 
-const getText = (signature, text) =>
-  isEmpty(text) ? getPlaceholderBySignature(signature) : text
-
 const format = signature => (cm) => {
   const { codeMirror } = cm
 
   const selection = codeMirror.getSelection()
-  const text = getText(signature, selection)
+  const text = isEmpty(selection) ? getPlaceholderBySignature(signature) : selection
   const start = codeMirror.getCursor('start')
   const end = incrementPosition(text.length, start)
 
