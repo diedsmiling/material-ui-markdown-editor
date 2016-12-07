@@ -26,5 +26,11 @@ const format = signature => (cm) => {
   codeMirror.focus()
 }
 
+export const getCurrentFormat = cm => (pos) => {
+  console.log(cm)
+  console.log(pos)
+}
+
 export const formatBold = format('**')
+
 export const formatItalic = format('*')
