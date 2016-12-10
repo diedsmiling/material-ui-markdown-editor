@@ -27,8 +27,9 @@ const format = signature => (cm) => {
 }
 
 export const getCurrentFormat = cm => (pos) => {
-  console.log(cm)
-  console.log(pos)
+  const { codeMirror } = cm
+  const cursor = codeMirror.getCursor('start')
+  return codeMirror.getTokenAt(cursor).type.split(' ')
 }
 
 export const formatBold = format('**')
