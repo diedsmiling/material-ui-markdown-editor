@@ -39,7 +39,8 @@ const ToolbarPanel = props => (
 )
 
 ToolbarPanel.propTypes = {
-  cm: PropTypes.object
+  cm: PropTypes.object,
+  tokens: PropTypes.array
 }
 
 export default ToolbarPanel
