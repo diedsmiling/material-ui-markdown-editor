@@ -11,7 +11,7 @@ const Button = props => (
 
 Button.propTypes = {
   icon: PropTypes.element,
-  onClick: PropTypes.function,
+  onClick: PropTypes.func,
   style: PropTypes.object //eslint-disable-line
 }
 
