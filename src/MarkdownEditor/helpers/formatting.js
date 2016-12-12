@@ -10,7 +10,7 @@ const getPlaceholderBySignature = signature => (
 
 const isEmpty = string => string.length === 0
 
-const format = signature => (cm) => {
+const format = signature => cm => () => {
   const { codeMirror } = cm
 
   const selection = codeMirror.getSelection()
