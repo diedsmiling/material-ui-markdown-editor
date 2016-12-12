@@ -7,7 +7,7 @@ const ToolbarPanel = props => (
   <Toolbar>
     <ToolbarGroup firstChild>
       {
-        getButtonsSchema(props.cm).map((section, i) => (
+        getButtonsSchema(props.cm, props.tokens).map((section, i) => (
           <ToolbarSection key={i} buttons={section} />
         ))
       }
