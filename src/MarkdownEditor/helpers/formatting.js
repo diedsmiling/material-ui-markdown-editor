@@ -71,8 +71,10 @@ const remove = signature => cm => () => {
     ch: endCh
   }
 
+  const text = codeMirror.getRange(startPoint, endPoint).split(signature).join('')
+
   codeMirror.replaceRange(
-    codeMirror.getRange(startPoint, endPoint).split(signature).join(''),
+    text,
     startPoint,
     endPoint
   )
