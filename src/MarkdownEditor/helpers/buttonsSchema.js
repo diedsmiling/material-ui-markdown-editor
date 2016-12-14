@@ -4,8 +4,13 @@ import Italic from 'material-ui/svg-icons/editor/format-italic'
 import BulletsList from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumbersList from 'material-ui/svg-icons/editor/format-list-numbered'
 import { lightBlack, grey400 } from 'material-ui/styles/colors'
-import { formatBold, formatItalic, removeBold } from './formatting'
-console.log(removeBold)
+import {
+  formatBold,
+  formatItalic,
+  removeBold,
+  removeItalic
+} from './formatting'
+
 const isActiveToken = (token, tokens) =>
   tokens.length && tokens[0] === token
 
@@ -20,6 +25,7 @@ const getSchema = (cm, tokens) => {
   const setBold = formatBold(cm)
   const setItalic = formatItalic(cm)
   const unsetBold = removeBold(cm)
+  const unsetItalic = removeItalic(cm)
 
   return [
     [
@@ -31,7 +37,7 @@ const getSchema = (cm, tokens) => {
       {
         style: getActiveStyle('em'),
         icon: <Italic color={lightBlack} />,
-        clickHanlder: setItalic
+        clickHanlder: isActiveToken('em', tokens) ? unsetItalic : setItalic
       }
     ],
     [

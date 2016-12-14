@@ -8,6 +8,10 @@ const getPlaceholderBySignature = signature => (
   { '**': 'Strong text', '*': 'Emphasized text' }[signature]
 )
 
+const getSignaturePositions = (line, signature, start) => (
+  [line.lastIndexOf(signature, start), line.indexOf(signature, start) + signature.length]
+)
+
 const isEmpty = string => string.length === 0
 
 const format = signature => cm => () => {
@@ -28,10 +32,25 @@ const format = signature => cm => () => {
 
 const remove = signature => cm => () => {
   const { codeMirror } = cm
-  console.log(signature)
+
   const cursor = codeMirror.getCursor('start')
-  const token = codeMirror.getTokenAt(cursor)
-  console.log(token)
+  const line = codeMirror.getLine(cursor.line)
+  const [startCh, endCh] = getSignaturePositions(line, signature, cursor.ch)
+  const startPoint = {
+    line: cursor.line,
+    ch: startCh
+  }
+
+  const endPoint = {
+    line: cursor.line,
+    ch: endCh
+  }
+
+  codeMirror.replaceRange(
+    codeMirror.getRange(startPoint, endPoint).split(signature).join(''),
+    startPoint,
+    endPoint
+  )
 }
 
 export const getCurrentFormat = (cm) => {
@@ -42,6 +61,8 @@ export const getCurrentFormat = (cm) => {
 }
 
 export const removeBold = remove('**')
+
+export const removeItalic = remove('*')
 
 export const formatBold = format('**')
 
