@@ -8,20 +8,6 @@ const getPlaceholderBySignature = signature => (
   { '**': 'Strong text', '*': 'Emphasized text' }[signature]
 )
 
-const getSignaturePositions = (line, signature, start) => {
-  let startPoint = line.lastIndexOf(signature, start)
-  let endPoint = line.indexOf(signature, start)
-  if (startPoint === endPoint) {
-    startPoint = line.lastIndexOf(signature, start - signature.length)
-    endPoint = line.indexOf(signature, start - signature.length)
-  }
-
-  return [
-    startPoint,
-    endPoint + signature.length
-  ]
-}
-
 const getPositions = (position, positions) =>
   positions.filter(pos => position > pos[0] && position < pos[1])[0]
 
@@ -34,13 +20,20 @@ const getMatches = (signature, string, start, accum) => {
   return accum
 }
 
-const groupPositions = (array, accum) => {
+const groupMatches = (array, accum) => {
   if (array.length) {
     accum.push(array.splice(0, 2)) //eslint-disable-line
-    groupPositions(array, accum)
+    groupMatches(array, accum)
   }
   return accum
 }
+
+/* Adds to the end postion token length */
+const normalize = (array, signature) =>
+  array.map((item) => {
+    item[1] += signature.length //eslint-disable-line
+    return item
+  })
 
 const isEmpty = string => string.length === 0
 
@@ -65,8 +58,8 @@ const remove = signature => cm => () => {
 
   const cursor = codeMirror.getCursor('start')
   const line = codeMirror.getLine(cursor.line)
-  const matches = groupPositions(getMatches(signature, line, 0, []), [])
-  const [startCh, endCh] = getPositions(cursor.ch, matches)
+  const matches = groupMatches(getMatches(signature, line, 0, []), [])
+  const [startCh, endCh] = getPositions(cursor.ch, normalize(matches, signature))
 
   const startPoint = {
     line: cursor.line,
