@@ -8,7 +8,8 @@ import {
   formatBold,
   formatItalic,
   removeBold,
-  removeItalic
+  removeItalic,
+  formatUl
 } from './formatting'
 
 const isActiveToken = (token, tokens) =>
@@ -24,6 +25,7 @@ const getSchema = (cm, tokens) => {
   const getActiveStyle = getStyleIfActive(tokens)
   const setBold = formatBold(cm)
   const setItalic = formatItalic(cm)
+  const setUl = formatUl(cm)
   const unsetBold = removeBold(cm)
   const unsetItalic = removeItalic(cm)
 
@@ -44,7 +46,7 @@ const getSchema = (cm, tokens) => {
       {
         style: { marginLeft: 24 },
         icon: <BulletsList color={lightBlack} />,
-        clickHanlder: function clickBold() { formatBold(cm) }
+        clickHanlder: setUl
       },
       {
         icon: <NumbersList color={lightBlack} />,

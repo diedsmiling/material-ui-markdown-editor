@@ -4,40 +4,69 @@ const incrementPosition = (summand, position) => {
   return pos
 }
 
+const position = (line, ch) => ({
+  line, ch
+})
+
 const getPlaceholderBySignature = signature => (
-  { '**': 'Strong text', '*': 'Emphasized text' }[signature]
+  {
+    '**': 'Strong text',
+    '*': 'Emphasized text',
+    '- ': 'List item'
+  }[signature]
 )
 
-const getPositions = (position, positions) =>
-  positions.filter(pos => position > pos[0] && position < pos[1])[0]
+const getPositions = (seekedPosition, positions) =>
+  positions.filter(pos => seekedPosition > pos[0] && seekedPosition < pos[1])[0]
 
-const getMatches = (signature, string, start, accum) => {
+const normalize = (array, signatureLength, accum = []) => {
+  if (array.length) {
+    /* Increases end postion with signature length */
+    const chunk = array.splice(0, 2)
+    chunk[1] += signatureLength
+    accum.push(chunk)
+    normalize(array, accum)
+  }
+  return accum
+}
+
+const getMatches = (signature, string, start = 0, accum = []) => {
   const index = string.indexOf(signature, start)
   if (index > -1) {
     accum.push(index)
     return getMatches(signature, string, index + 1, accum)
   }
-  return accum
+  return normalize(accum, signature.length)
 }
-
-const groupMatches = (array, accum) => {
-  if (array.length) {
-    accum.push(array.splice(0, 2)) //eslint-disable-line
-    groupMatches(array, accum)
-  }
-  return accum
-}
-
-/* Adds to the end postion token length */
-const normalize = (array, length) =>
-  array.map((item) => {
-    item[1] += length //eslint-disable-line
-    return item
-  })
 
 const isEmpty = string => string.length === 0
 
-const format = signature => cm => () => {
+const isEmptyOneLineSelection = (line, length) =>
+  isEmpty(line) && length === 1
+
+const formatMultiline = signature => cm => () => {
+  const { codeMirror } = cm
+  const start = codeMirror.getCursor('start')
+  const end = codeMirror.getCursor('end')
+  const length = (end.line - start.line) + 1
+
+  Array(length)
+    .fill(start.line)
+    .forEach((from, i) => {
+      const lineNumber = from + i
+      const line = codeMirror.getLine(lineNumber)
+      const text = signature +
+        (isEmptyOneLineSelection(line, length) ? getPlaceholderBySignature(signature) : line)
+
+      codeMirror.replaceRange(
+        text,
+        position(lineNumber, 0),
+        position(lineNumber, line.length)
+      )
+    })
+}
+
+const formatInline = signature => cm => () => {
   const { codeMirror } = cm
 
   const selection = codeMirror.getSelection()
@@ -53,24 +82,17 @@ const format = signature => cm => () => {
   codeMirror.focus()
 }
 
-const remove = signature => cm => () => {
+const removeInline = signature => cm => () => {
   const { codeMirror } = cm
 
   const cursor = codeMirror.getCursor('start')
   const line = codeMirror.getLine(cursor.line)
-  const matches = groupMatches(getMatches(signature, line, 0, []), [])
-  const [startCh, endCh] = getPositions(cursor.ch, normalize(matches, signature.length))
-
-  const startPoint = {
-    line: cursor.line,
-    ch: startCh
-  }
-
-  const endPoint = {
-    line: cursor.line,
-    ch: endCh
-  }
-
+  const [start, end] = getPositions(
+    cursor.ch,
+    getMatches(signature, line)
+  )
+  const startPoint = position(cursor.line, start)
+  const endPoint = position(cursor.line, end)
   const text =
     codeMirror
       .getRange(startPoint, endPoint)
@@ -90,10 +112,12 @@ export const getCurrentFormat = (cm) => {
   return type ? type.split(' ') : []
 }
 
-export const removeBold = remove('**')
+export const formatUl = formatMultiline('- ')
 
-export const removeItalic = remove('*')
+export const removeBold = removeInline('**')
 
-export const formatBold = format('**')
+export const removeItalic = removeInline('*')
 
-export const formatItalic = format('*')
+export const formatBold = formatInline('**')
+
+export const formatItalic = formatInline('*')
