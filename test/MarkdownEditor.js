@@ -29,11 +29,11 @@ test('Should render Codemirror component', t =>
   t.true(wrapper.containsMatchingElement(<Codemirror />))
 )
 
-test('Should add an instance of codeMirror to the state', t =>
+test('Should add codeMirror reference to the state', t =>
   t.true(wrapper.state().cm.codeMirror instanceof codeMirror)
 )
 
-test('Should update state on textarea change', (t) => {
+test('Should update state on codeMirror change', (t) => {
   const changeObject = {
     origin: '+input'
   }
