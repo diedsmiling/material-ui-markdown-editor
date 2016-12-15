@@ -8,6 +8,15 @@ const position = (line, ch) => ({
   line, ch
 })
 
+const isEmpty = string => string.length === 0
+
+const isEmptyOneLineSelection = (line, length) =>
+  isEmpty(line) && length === 1
+
+
+const getPositions = (seekedPosition, positions) =>
+  positions.filter(pos => seekedPosition > pos[0] && seekedPosition < pos[1])[0]
+
 const getPlaceholderBySignature = signature => (
   {
     '**': 'Strong text',
@@ -15,9 +24,6 @@ const getPlaceholderBySignature = signature => (
     '- ': 'List item'
   }[signature]
 )
-
-const getPositions = (seekedPosition, positions) =>
-  positions.filter(pos => seekedPosition > pos[0] && seekedPosition < pos[1])[0]
 
 const normalize = (array, signatureLength, accum = []) => {
   if (array.length) {
@@ -38,11 +44,6 @@ const getMatches = (signature, string, start = 0, accum = []) => {
   }
   return normalize(accum, signature.length)
 }
-
-const isEmpty = string => string.length === 0
-
-const isEmptyOneLineSelection = (line, length) =>
-  isEmpty(line) && length === 1
 
 const formatMultiline = signature => cm => () => {
   const { codeMirror } = cm
