@@ -21,14 +21,24 @@ test.beforeEach(() => {
   })
 })
 
-test('Should render Toolbar component', (t) => {
+test('Should render Toolbar component', t =>
   t.true(wrapper.containsMatchingElement(<ToolbarPanel />))
-})
+)
 
-test('Should render Codemirror component', (t) => {
+test('Should render Codemirror component', t =>
   t.true(wrapper.containsMatchingElement(<Codemirror />))
-})
+)
 
-test('Should add an instance of codeMirror to the state', (t) => {
+test('Should add an instance of codeMirror to the state', t =>
   t.true(wrapper.state().cm.codeMirror instanceof codeMirror)
+)
+
+test('Should update state on textarea change', (t) => {
+  const changeObject = {
+    origin: '+input'
+  }
+  const cm = wrapper.state().cm.codeMirror
+  cm.setValue('test')
+  codeMirror.signal(cm, 'change', cm, changeObject)
+  t.is(wrapper.state().code, 'test')
 })
