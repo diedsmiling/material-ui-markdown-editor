@@ -29,9 +29,9 @@ const groupMatches = (array, accum) => {
 }
 
 /* Adds to the end postion token length */
-const normalize = (array, signature) =>
+const normalize = (array, length) =>
   array.map((item) => {
-    item[1] += signature.length //eslint-disable-line
+    item[1] += length //eslint-disable-line
     return item
   })
 
@@ -59,7 +59,7 @@ const remove = signature => cm => () => {
   const cursor = codeMirror.getCursor('start')
   const line = codeMirror.getLine(cursor.line)
   const matches = groupMatches(getMatches(signature, line, 0, []), [])
-  const [startCh, endCh] = getPositions(cursor.ch, normalize(matches, signature))
+  const [startCh, endCh] = getPositions(cursor.ch, normalize(matches, signature.length))
 
   const startPoint = {
     line: cursor.line,
@@ -71,7 +71,10 @@ const remove = signature => cm => () => {
     ch: endCh
   }
 
-  const text = codeMirror.getRange(startPoint, endPoint).split(signature).join('')
+  const text =
+    codeMirror
+      .getRange(startPoint, endPoint)
+      .split(signature).join('')
 
   codeMirror.replaceRange(
     text,
