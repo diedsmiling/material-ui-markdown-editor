@@ -13,7 +13,6 @@ const isEmpty = string => string.length === 0
 const isEmptyOneLineSelection = (line, length) =>
   isEmpty(line) && length === 1
 
-
 const getPositions = (seekedPosition, positions) =>
   positions.filter(pos => seekedPosition > pos[0] && seekedPosition < pos[1])[0]
 
