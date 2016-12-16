@@ -34,23 +34,23 @@ const getSchema = (cm, tokens) => {
       {
         style: { marginLeft: 24, ...getActiveStyle('strong') },
         icon: <Bold color={lightBlack} />,
-        clickHanlder: isActiveToken('strong', tokens) ? unsetBold : setBold
+        onClick: isActiveToken('strong', tokens) ? unsetBold : setBold
       },
       {
         style: getActiveStyle('em'),
         icon: <Italic color={lightBlack} />,
-        clickHanlder: isActiveToken('em', tokens) ? unsetItalic : setItalic
+        onClick: isActiveToken('em', tokens) ? unsetItalic : setItalic
       }
     ],
     [
       {
         style: { marginLeft: 24 },
         icon: <BulletsList color={lightBlack} />,
-        clickHanlder: setUl
+        onClick: setUl
       },
       {
         icon: <NumbersList color={lightBlack} />,
-        clickHanlder: function clickBold() { formatBold(cm) }
+        onClick: function clickBold() { formatBold(cm) }
       }
     ]
   ]

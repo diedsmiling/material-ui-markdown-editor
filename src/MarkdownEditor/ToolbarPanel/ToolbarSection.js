@@ -8,10 +8,7 @@ const ToolbarSection = props => (
       props.buttons.map((button, key) => (
         <Button
           key={key}
-          style={button.style}
-          onClick={button.clickHanlder}
-          icon={button.icon}
-          icons={button.icons}
+          {...button}
         />
       ))
     }
