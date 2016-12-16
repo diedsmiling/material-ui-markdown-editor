@@ -34,17 +34,24 @@ test('Should add CodeMirror reference to the state', t =>
 )
 
 test('Should update state on CodeMirror change', (t) => {
-  const changeObject = {
-    origin: '+input'
-  }
   const { codeMirror } = wrapper.state().cm
-  codeMirror.setValue('test')
-  CM.signal(codeMirror, 'change', codeMirror, changeObject)
-  t.is(wrapper.state().code, 'test')
+  codeMirror.setValue('foo bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  t.is(wrapper.state().code, 'foo bar')
 })
 
 test('Should set CodeMirror mode as "markdown" and lineNumbers opion', (t) => {
   const { options } = wrapper.state().cm.codeMirror
   t.is(options.mode, 'markdown')
   t.true(options.lineNumbers)
+})
+
+test('Should set token on cursor activity', (t) => {
+  const { codeMirror } = wrapper.state().cm
+  t.deepEqual(wrapper.state().tokens, [])
+
+  codeMirror.setValue('** foo **')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  CM.signal(codeMirror, 'cursorActivity', codeMirror, {})
+  t.deepEqual(wrapper.state().tokens, ['strong'])
 })
