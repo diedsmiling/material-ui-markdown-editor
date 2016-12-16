@@ -1,6 +1,6 @@
 import React from 'react'
 import test from 'ava'
-import codeMirror from 'codemirror'
+import CM from 'codemirror'
 import Codemirror from 'react-codemirror'
 
 import { mount } from 'enzyme'
@@ -30,16 +30,16 @@ test('Should render <Codemirror /> component', t =>
 )
 
 test('Should add CodeMirror reference to the state', t =>
-  t.true(wrapper.state().cm.codeMirror instanceof codeMirror)
+  t.true(wrapper.state().cm.codeMirror instanceof CM)
 )
 
 test('Should update state on CodeMirror change', (t) => {
   const changeObject = {
     origin: '+input'
   }
-  const cm = wrapper.state().cm.codeMirror
-  cm.setValue('test')
-  codeMirror.signal(cm, 'change', cm, changeObject)
+  const { codeMirror } = wrapper.state().cm
+  codeMirror.setValue('test')
+  CM.signal(codeMirror, 'change', codeMirror, changeObject)
   t.is(wrapper.state().code, 'test')
 })
 
