@@ -25,15 +25,15 @@ test('Should render Toolbar component', t =>
   t.true(wrapper.containsMatchingElement(<ToolbarPanel />))
 )
 
-test('Should render Codemirror component', t =>
+test('Should render <Codemirror /> component', t =>
   t.true(wrapper.containsMatchingElement(<Codemirror />))
 )
 
-test('Should add codeMirror reference to the state', t =>
+test('Should add CodeMirror reference to the state', t =>
   t.true(wrapper.state().cm.codeMirror instanceof codeMirror)
 )
 
-test('Should update state on codeMirror change', (t) => {
+test('Should update state on CodeMirror change', (t) => {
   const changeObject = {
     origin: '+input'
   }
@@ -41,4 +41,10 @@ test('Should update state on codeMirror change', (t) => {
   cm.setValue('test')
   codeMirror.signal(cm, 'change', cm, changeObject)
   t.is(wrapper.state().code, 'test')
+})
+
+test('Should set CodeMirror mode as "markdown" and lineNumbers opion', (t) => {
+  const { options } = wrapper.state().cm.codeMirror
+  t.is(options.mode, 'markdown')
+  t.true(options.lineNumbers)
 })
