@@ -105,11 +105,23 @@ const removeInline = signature => cm => () => {
   )
 }
 
+export const normalizeList = (types, line) => {
+  const typesCloned = [...types]
+  if (typesCloned[0] !== 'variable-2') return typesCloned
+  typesCloned[0] = line.startsWith('- ') || line.startsWith('* ')
+    ? typesCloned[0] = 'ul'
+    : typesCloned[0] = 'ol'
+
+  return typesCloned
+}
+
 export const getCurrentFormat = (cm) => {
   const { codeMirror } = cm
   const cursor = codeMirror.getCursor('start')
   const type = codeMirror.getTokenTypeAt(cursor)
-  return type ? type.split(' ') : []
+  const line = codeMirror.getLine(cursor.line)
+
+  return type ? normalizeList(type.split(' '), line) : []
 }
 
 export const formatUl = formatMultiline('- ')
