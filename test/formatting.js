@@ -30,3 +30,10 @@ test('Should recognise format', (t) => {
   cm.codeMirror.setValue('** Foo **')
   t.deepEqual(getCurrentFormat(cm), ['strong'])
 })
+
+test('Should return empty array if no format is recognised', (t) => {
+  const { cm } = wrapper.state()
+  cm.codeMirror.setValue('** Foo ** bar')
+  cm.codeMirror.setCursor({ line: 0, ch: 11 })
+  t.deepEqual(getCurrentFormat(cm), [])
+})
