@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import ToolbarSection from './ToolbarSection'
-import getButtonsSchema from '../helpers/buttonsSchema'
+import getButtonsSchema from './buttonsSchema'
 
 const ToolbarPanel = props => (
   <Toolbar>

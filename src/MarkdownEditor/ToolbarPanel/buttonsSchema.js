@@ -10,7 +10,7 @@ import {
   removeBold,
   removeItalic,
   formatUl
-} from './formatting'
+} from '../formatting'
 
 const isActiveToken = (token, tokens) =>
   tokens.length && tokens[0] === token

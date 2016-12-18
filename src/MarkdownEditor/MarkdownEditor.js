@@ -3,7 +3,7 @@ import Codemirror from 'react-codemirror'
 import ToolbarPanel from './ToolbarPanel'
 import codemirrorMd from 'codemirror/mode/markdown/markdown' // eslint-disable-line
 import styles from 'codemirror/lib/codemirror.css' // eslint-disable-line
-import { getCurrentFormat } from './helpers/formatting'
+import { getCurrentFormat } from './formatting'
 
 export default class MarkdownEditor extends React.Component {
   constructor() {

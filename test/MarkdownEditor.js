@@ -2,7 +2,6 @@ import React from 'react'
 import test from 'ava'
 import CM from 'codemirror'
 import Codemirror from 'react-codemirror'
-
 import { mount } from 'enzyme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Markdown from '../src/MarkdownEditor/MarkdownEditor'
