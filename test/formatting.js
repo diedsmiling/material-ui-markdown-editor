@@ -24,3 +24,9 @@ test('Should recognise current format and provide it in a form of array', (t) =>
   const format = getCurrentFormat(wrapper.state().cm)
   t.true(Array.isArray(format))
 })
+
+test('Should recognise format', (t) => {
+  const { cm } = wrapper.state()
+  cm.codeMirror.setValue('** Foo **')
+  t.deepEqual(getCurrentFormat(cm), ['strong'])
+})
