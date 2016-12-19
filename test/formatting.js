@@ -45,3 +45,11 @@ test('Should recognise "ul" format', (t) => {
   CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ul'])
 })
+
+test('Should recognise "ol" format', (t) => {
+  const { cm } = wrapper.state()
+  const list = `1. foo \n2. bar`
+  cm.codeMirror.setValue(list)
+  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  t.deepEqual(getCurrentFormat(cm), ['ol'])
+})
