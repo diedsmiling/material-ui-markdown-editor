@@ -37,3 +37,11 @@ test('Should return empty array if no format is recognised', (t) => {
   cm.codeMirror.setCursor({ line: 0, ch: 11 })
   t.deepEqual(getCurrentFormat(cm), [])
 })
+
+test('Should recognise "ul" format', (t) => {
+  const { cm } = wrapper.state()
+  const list = `- foo \n- bar`
+  cm.codeMirror.setValue(list)
+  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  t.deepEqual(getCurrentFormat(cm), ['ul'])
+})
