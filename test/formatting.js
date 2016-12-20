@@ -29,33 +29,33 @@ test('Should recognise current format and provide it in a form of array', (t) =>
 })
 
 test('Should recognise format', (t) => {
-  cm.codeMirror.setValue('** Foo **')
+  codeMirror.setValue('** Foo **')
   t.deepEqual(getCurrentFormat(cm), ['strong'])
 })
 
 test('Should return empty array if no format is recognised', (t) => {
-  cm.codeMirror.setValue('** Foo ** bar')
-  cm.codeMirror.setCursor({ line: 0, ch: 11 })
+  codeMirror.setValue('** Foo ** bar')
+  codeMirror.setCursor({ line: 0, ch: 11 })
   t.deepEqual(getCurrentFormat(cm), [])
 })
 
 test('Should recognise "ul" format', (t) => {
   const list = `- foo \n- bar`
-  cm.codeMirror.setValue(list)
-  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  codeMirror.setValue(list)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ul'])
 })
 
 test('Should recognise "ol" format', (t) => {
   const list = `1. foo \n2. bar`
-  cm.codeMirror.setValue(list)
-  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  codeMirror.setValue(list)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ol'])
 })
 
 test('Bold formatting should insert strong placeholder when nothing is selected', (t) => {
-  cm.codeMirror.setValue('')
-  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  codeMirror.setValue('')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatBold(cm)()
   t.is(wrapper.state().code, '**Strong text**')
 })
