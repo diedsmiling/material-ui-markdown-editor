@@ -4,7 +4,11 @@ import CM from 'codemirror'
 import { mount } from 'enzyme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Markdown from '../src/MarkdownEditor/MarkdownEditor'
-import { getCurrentFormat, formatBold } from '../src/MarkdownEditor/formatting'
+import {
+  getCurrentFormat,
+  formatBold,
+  removeBold
+} from '../src/MarkdownEditor/formatting'
 
 let wrapper
 let cm
@@ -53,7 +57,7 @@ test('Should recognise "ol" format', (t) => {
   t.deepEqual(getCurrentFormat(cm), ['ol'])
 })
 
-test('Bold formatting should insert strong placeholder when nothing is selected', (t) => {
+test('Bold formatting should insert a placeholder when nothing is selected', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatBold(cm)()
@@ -66,4 +70,12 @@ test('Bold formatting should wrap selection in "** **"', (t) => {
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
   formatBold(cm)()
   t.is(wrapper.state().code, 'Foo **bar**')
+})
+
+test('Bold "unformatting" should unwrap selection from "**"', (t) => {
+  codeMirror.setValue('Foo **bar** **baz**')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 6 }, { line: 0, ch: 9 })
+  removeBold(cm)()
+  t.is(wrapper.state().code, 'Foo bar **baz**')
 })
