@@ -4,7 +4,7 @@ import CM from 'codemirror'
 import { mount } from 'enzyme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Markdown from '../src/MarkdownEditor/MarkdownEditor'
-import { getCurrentFormat } from '../src/MarkdownEditor/formatting'
+import { getCurrentFormat, formatBold } from '../src/MarkdownEditor/formatting'
 
 let wrapper
 let cm
@@ -48,4 +48,11 @@ test('Should recognise "ol" format', (t) => {
   cm.codeMirror.setValue(list)
   CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ol'])
+})
+
+test('Should insert strong placeholder when nothing is selected', (t) => {
+  cm.codeMirror.setValue('')
+  CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
+  formatBold(cm)()
+  t.is(wrapper.state().code, '**Strong text**')
 })
