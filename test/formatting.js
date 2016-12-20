@@ -79,3 +79,11 @@ test('Bold "unformatting" should unwrap selection from "**"', (t) => {
   removeBold(cm)()
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
+
+test('Bold "unformatting" should unwrap without selection from "**"', (t) => {
+  codeMirror.setValue('Foo **bar** **baz**')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setCursor({ line: 0, ch: 8 })
+  removeBold(cm)()
+  t.is(wrapper.state().code, 'Foo bar **baz**')
+})
