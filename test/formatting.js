@@ -57,6 +57,10 @@ test('Should recognise "ol" format', (t) => {
   t.deepEqual(getCurrentFormat(cm), ['ol'])
 })
 
+test('formatBold should return a function', t =>
+  t.is(typeof formatBold(cm), 'function')
+)
+
 test('Bold formatting should insert a placeholder when nothing is selected', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
