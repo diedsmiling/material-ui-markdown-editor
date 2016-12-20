@@ -8,6 +8,8 @@ import { getCurrentFormat, formatBold } from '../src/MarkdownEditor/formatting'
 
 let wrapper
 let cm
+let codeMirror
+
 test.beforeEach(() => {
   wrapper = mount(<Markdown />, {
     context: {
@@ -18,6 +20,7 @@ test.beforeEach(() => {
     }
   })
   cm = wrapper.state().cm
+  codeMirror = cm.codeMirror
 })
 
 test('Should recognise current format and provide it in a form of array', (t) => {
@@ -50,9 +53,17 @@ test('Should recognise "ol" format', (t) => {
   t.deepEqual(getCurrentFormat(cm), ['ol'])
 })
 
-test('Should insert strong placeholder when nothing is selected', (t) => {
+test('Bold formatting should insert strong placeholder when nothing is selected', (t) => {
   cm.codeMirror.setValue('')
   CM.signal(cm.codeMirror, 'change', cm.codeMirror, { origin: '+input' })
   formatBold(cm)()
   t.is(wrapper.state().code, '**Strong text**')
+})
+
+test('Bold formatting should wrap selection in "** **"', (t) => {
+  codeMirror.setValue('Foo bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
+  formatBold(cm)()
+  t.is(wrapper.state().code, 'Foo **bar**')
 })
