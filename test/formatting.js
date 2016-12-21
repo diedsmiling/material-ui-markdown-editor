@@ -7,6 +7,7 @@ import Markdown from '../src/MarkdownEditor/MarkdownEditor'
 import {
   getCurrentFormat,
   formatBold,
+  formatItalic,
   removeBold
 } from '../src/MarkdownEditor/formatting'
 
@@ -107,4 +108,23 @@ test('Bold "unformatting" should unwrap without selection from "**" on right bor
   codeMirror.setCursor({ line: 0, ch: 10 })
   removeBold(cm)()
   t.is(wrapper.state().code, 'Foo bar **baz**')
+})
+
+test('formatItalic should return a function', t =>
+  t.is(typeof formatItalic(cm), 'function')
+)
+
+test('Italic formatting should insert a placeholder when nothing is selected', (t) => {
+  codeMirror.setValue('')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatItalic(cm)()
+  t.is(wrapper.state().code, '*Emphasized text*')
+})
+
+test('Italic formatting should wrap selection in "* *"', (t) => {
+  codeMirror.setValue('Foo bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
+  formatItalic(cm)()
+  t.is(wrapper.state().code, 'Foo *bar*')
 })
