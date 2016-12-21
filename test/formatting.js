@@ -8,7 +8,8 @@ import {
   getCurrentFormat,
   formatBold,
   formatItalic,
-  removeBold
+  removeBold,
+  removeItalic
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -127,4 +128,20 @@ test('Italic formatting should wrap selection in "* *"', (t) => {
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
   formatItalic(cm)()
   t.is(wrapper.state().code, 'Foo *bar*')
+})
+
+test('Italic "unformatting" should unwrap selection from "*"', (t) => {
+  codeMirror.setValue('Foo *bar* *baz*')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 5 }, { line: 0, ch: 8 })
+  removeItalic(cm)()
+  t.is(wrapper.state().code, 'Foo bar *baz*')
+})
+
+test('Italic "unformatting" should unwrap without selection from "*"', (t) => {
+  codeMirror.setValue('Foo *bar* *baz*')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setCursor({ line: 0, ch: 6 })
+  removeItalic(cm)()
+  t.is(wrapper.state().code, 'Foo bar *baz*')
 })
