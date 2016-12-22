@@ -85,6 +85,14 @@ test('Bold formatting should select placeholder when it is invoked', (t) => {
   t.is(codeMirror.getSelection(), 'Strong text')
 })
 
+test('Bold formatting should keep selection', (t) => {
+  codeMirror.setValue('Foo bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
+  formatBold(cm)()
+  t.is(codeMirror.getSelection(), 'bar')
+})
+
 test('Bold "unformatting" should unwrap selection from "**"', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
