@@ -117,7 +117,6 @@ test('Bold "unformatting" should unwrap without selection from "**" on left bord
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
 
-
 test('Bold "unformatting" should unwrap without selection from "**" on right border', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
@@ -143,6 +142,21 @@ test('Italic formatting should wrap selection in "* *"', (t) => {
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
   formatItalic(cm)()
   t.is(wrapper.state().code, 'Foo *bar*')
+})
+
+test('Italic formatting should select placeholder when it is invoked', (t) => {
+  codeMirror.setValue('')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatItalic(cm)()
+  t.is(codeMirror.getSelection(), 'Emphasized text')
+})
+
+test('Italic formatting should keep selection', (t) => {
+  codeMirror.setValue('Foo bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
+  formatItalic(cm)()
+  t.is(codeMirror.getSelection(), 'bar')
 })
 
 test('Italic "unformatting" should unwrap selection from "*"', (t) => {
