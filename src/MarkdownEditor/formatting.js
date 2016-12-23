@@ -65,6 +65,9 @@ const formatMultiline = signature => cm => () => {
         position(lineNumber, line.length)
       )
     })
+
+  codeMirror.setSelection(start, incrementPosition(signature.length, end))
+  codeMirror.focus()
 }
 
 const removeMultiline = signature => cm => () => {
