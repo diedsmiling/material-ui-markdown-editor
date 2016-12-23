@@ -182,3 +182,12 @@ test('Italic "unformatting" should unwrap without selection from "*"', (t) => {
   removeItalic(cm)()
   t.is(wrapper.state().code, 'Foo bar *baz*')
 })
+
+test('Should correctly unformat nesting strings', (t) => {
+  codeMirror.setValue('***Strong text***')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setCursor({ line: 0, ch: 6 })
+  CM.signal(codeMirror, 'cursorActivity', codeMirror, {})
+  removeItalic(cm)()
+  t.is(wrapper.state().code, '**Strong text**')
+})

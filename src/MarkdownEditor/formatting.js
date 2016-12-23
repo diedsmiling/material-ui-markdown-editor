@@ -30,7 +30,7 @@ const normalize = (array, signatureLength, accum = []) => {
     const chunk = array.splice(0, 2)
     chunk[1] += signatureLength
     accum.push(chunk)
-    normalize(array, accum)
+    normalize(array, signatureLength, accum)
   }
   return accum
 }
@@ -39,8 +39,9 @@ const getMatches = (signature, string, start = 0, accum = []) => {
   const index = string.indexOf(signature, start)
   if (index > -1) {
     accum.push(index)
-    return getMatches(signature, string, index + 1, accum)
+    return getMatches(signature, string, index + signature.length, accum)
   }
+
   return normalize(accum, signature.length)
 }
 
@@ -66,6 +67,15 @@ const formatMultiline = signature => cm => () => {
     })
 }
 
+const removeMultiline = signature => cm => () => {
+  const { codeMirror } = cm
+  const start = codeMirror.getCursor('start')
+  const end = codeMirror.getCursor('end')
+  const length = (end.line - start.line) + 1
+
+  console.log(length)
+}
+
 const formatInline = signature => cm => () => {
   const { codeMirror } = cm
 
@@ -87,6 +97,7 @@ const removeInline = signature => cm => () => {
 
   const cursor = codeMirror.getCursor('start')
   const line = codeMirror.getLine(cursor.line)
+
   const [start, end] = getPositions(
     cursor.ch,
     getMatches(signature, line)
@@ -105,7 +116,7 @@ const removeInline = signature => cm => () => {
   )
 }
 
-export const normalizeList = (types, line) => {
+const normalizeList = (types, line) => {
   const typesCloned = [...types]
   if (typesCloned[0] !== 'variable-2') return typesCloned
   typesCloned[0] = line.startsWith('- ') || line.startsWith('* ')
@@ -125,6 +136,8 @@ export const getCurrentFormat = (cm) => {
 }
 
 export const formatUl = formatMultiline('- ')
+
+export const removeUl = removeMultiline('- ')
 
 export const removeBold = removeInline('**')
 
