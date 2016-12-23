@@ -63,6 +63,10 @@ test('formatBold should return a function', t =>
   t.is(typeof formatBold(cm), 'function')
 )
 
+test('removeBold should return a function', t =>
+  t.is(typeof removeBold(cm), 'function')
+)
+
 test('Bold formatting should insert a placeholder when nothing is selected', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
@@ -127,6 +131,10 @@ test('Bold "unformatting" should unwrap without selection from "**" on right bor
 
 test('formatItalic should return a function', t =>
   t.is(typeof formatItalic(cm), 'function')
+)
+
+test('removeItalic should return a function', t =>
+  t.is(typeof removeItalic(cm), 'function')
 )
 
 test('Italic formatting should insert a placeholder when nothing is selected', (t) => {
