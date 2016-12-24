@@ -215,3 +215,11 @@ test('Ul formatting should add "- " to the current line when nothing is selected
   formatUl(cm)()
   t.is(wrapper.state().code, '- foo')
 })
+
+
+test('Ul formatting should select current line after one line formatting', (t) => {
+  codeMirror.setValue(`foo`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatUl(cm)()
+  t.is(codeMirror.getSelection(), '- foo')
+})

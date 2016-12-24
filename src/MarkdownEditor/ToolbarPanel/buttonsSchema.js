@@ -9,7 +9,8 @@ import {
   formatItalic,
   removeBold,
   removeItalic,
-  formatUl
+  formatUl,
+  removeUl
 } from '../formatting'
 
 const isActiveToken = (token, tokens) =>
@@ -28,6 +29,7 @@ const getSchema = (cm, tokens) => {
   const setUl = formatUl(cm)
   const unsetBold = removeBold(cm)
   const unsetItalic = removeItalic(cm)
+  const unsetUl = removeUl(cm)
 
   return [
     [
@@ -44,9 +46,9 @@ const getSchema = (cm, tokens) => {
     ],
     [
       {
-        style: { marginLeft: 24 },
+        style: { marginLeft: 24, ...getActiveStyle('ul') },
         icon: <BulletsList color={lightBlack} />,
-        onClick: setUl
+        onClick: isActiveToken('ul', tokens) ? unsetUl : setUl
       },
       {
         icon: <NumbersList color={lightBlack} />,
