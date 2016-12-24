@@ -9,7 +9,8 @@ import {
   formatBold,
   formatItalic,
   removeBold,
-  removeItalic
+  removeItalic,
+  formatUl
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -190,4 +191,27 @@ test('Should correctly unformat nesting strings', (t) => {
   CM.signal(codeMirror, 'cursorActivity', codeMirror, {})
   removeItalic(cm)()
   t.is(wrapper.state().code, '**Strong text**')
+})
+
+test('Ul fomratting should add "- " to every selected line', (t) => {
+  codeMirror.setValue(`foo\nbar`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
+  formatUl(cm)()
+  t.is(wrapper.state().code, `- foo\n- bar`)
+})
+
+test('Ul formattings should select all the lines after formatting', (t) => {
+  codeMirror.setValue(`foo\nbar`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
+  formatUl(cm)()
+  t.is(codeMirror.getSelection(), `- foo\n- bar`)
+})
+
+test('Ul formatting should add "- " to the current line when nothing is selected', (t) => {
+  codeMirror.setValue(`foo`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatUl(cm)()
+  t.is(wrapper.state().code, '- foo')
 })
