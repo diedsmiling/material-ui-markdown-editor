@@ -10,7 +10,8 @@ import {
   formatItalic,
   removeBold,
   removeItalic,
-  formatUl
+  formatUl,
+  removeUl
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -221,4 +222,12 @@ test('Ul formatting should select current line after one line formatting', (t) =
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatUl(cm)()
   t.is(codeMirror.getSelection(), '- foo')
+})
+
+test('Ul unformat should remove from "" from "- " each selected line', (t) => {
+  codeMirror.setValue(`- foo\n- bar`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
+  removeUl(cm)()
+  t.is(wrapper.state().code, `foo\nbar`)
 })

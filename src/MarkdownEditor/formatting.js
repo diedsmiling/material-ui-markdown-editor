@@ -77,7 +77,16 @@ const removeMultiline = signature => cm => () => {
   const end = codeMirror.getCursor('end')
   const length = (end.line - start.line) + 1
 
-  console.log(length)
+  Array(length)
+    .fill(start.line)
+    .forEach((from, i) => {
+      const currentLine = from + i
+      codeMirror.replaceRange(
+        '',
+        position(currentLine, 0),
+        position(currentLine, signature.length)
+      )
+    })
 }
 
 const formatInline = signature => cm => () => {
