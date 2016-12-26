@@ -224,10 +224,17 @@ test('Ul formatting should select current line after one line formatting', (t) =
   t.is(codeMirror.getSelection(), '- foo')
 })
 
-test('Ul unformat should remove from "" from "- " each selected line', (t) => {
+test('Ul unformat should remove from  "- " from each selected line', (t) => {
   codeMirror.setValue(`- foo\n- bar`)
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
   removeUl(cm)()
   t.is(wrapper.state().code, `foo\nbar`)
+})
+
+test('Ul unformat should remove "- " from current line if nothing is selected', (t) => {
+  codeMirror.setValue(`- foo\n- bar`)
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  removeUl(cm)()
+  t.is(wrapper.state().code, `foo\n- bar`)
 })
