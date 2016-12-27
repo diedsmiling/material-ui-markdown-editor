@@ -48,14 +48,14 @@ test('Should return empty array if no format is recognised', (t) => {
 })
 
 test('Should recognise "ul" format', (t) => {
-  const list = `- foo \n- bar`
+  const list = '- foo \n- bar'
   codeMirror.setValue(list)
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ul'])
 })
 
 test('Should recognise "ol" format', (t) => {
-  const list = `1. foo \n2. bar`
+  const list = '1. foo \n2. bar'
   codeMirror.setValue(list)
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ol'])
@@ -195,46 +195,46 @@ test('Should correctly unformat nesting strings', (t) => {
 })
 
 test('Ul fomratting should add "- " to every selected line', (t) => {
-  codeMirror.setValue(`foo\nbar`)
+  codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
   formatUl(cm)()
-  t.is(wrapper.state().code, `- foo\n- bar`)
+  t.is(wrapper.state().code, '- foo\n- bar')
 })
 
 test('Ul formattings should select all the lines after formatting', (t) => {
-  codeMirror.setValue(`foo\nbar`)
+  codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
   formatUl(cm)()
-  t.is(codeMirror.getSelection(), `- foo\n- bar`)
+  t.is(codeMirror.getSelection(), '- foo\n- bar')
 })
 
 test('Ul formatting should add "- " to the current line when nothing is selected', (t) => {
-  codeMirror.setValue(`foo`)
+  codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatUl(cm)()
   t.is(wrapper.state().code, '- foo')
 })
 
 test('Ul formatting should select current line after one line formatting', (t) => {
-  codeMirror.setValue(`foo`)
+  codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatUl(cm)()
   t.is(codeMirror.getSelection(), '- foo')
 })
 
 test('Ul unformat should remove from  "- " from each selected line', (t) => {
-  codeMirror.setValue(`- foo\n- bar`)
+  codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
   removeUl(cm)()
-  t.is(wrapper.state().code, `foo\nbar`)
+  t.is(wrapper.state().code, 'foo\nbar')
 })
 
 test('Ul unformat should remove "- " from current line if nothing is selected', (t) => {
-  codeMirror.setValue(`- foo\n- bar`)
+  codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeUl(cm)()
-  t.is(wrapper.state().code, `foo\n- bar`)
+  t.is(wrapper.state().code, 'foo\n- bar')
 })
