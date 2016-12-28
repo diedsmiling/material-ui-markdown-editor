@@ -3,11 +3,11 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import ToolbarSection from './ToolbarSection'
 import getButtonsSchema from './buttonsSchema'
 
-const ToolbarPanel = props => (
+const ToolbarPanel = ({ cm, tokens }) => (
   <Toolbar>
     <ToolbarGroup firstChild>
       {
-        getButtonsSchema(props.cm, props.tokens).map((section, i) => (
+        getButtonsSchema(cm, tokens).map((section, i) => (
           <ToolbarSection key={i} buttons={section} />
         ))
       }

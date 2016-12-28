@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import FlatButton from 'material-ui/FlatButton'
 
-const Button = props => (
+const Button = ({ onClick, style, icon }) => (
   <FlatButton
-    onClick={props.onClick}
-    style={{ ...props.style, minWidth: '36px' }}
-    icon={props.icon}
+    onClick={onClick}
+    style={{ ...style, minWidth: '36px' }}
+    icon={icon}
   />
 )
 
