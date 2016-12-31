@@ -32,6 +32,8 @@ test.beforeEach(() => {
   codeMirror = cm.codeMirror
 })
 
+/* Format recognising */
+
 test('Should recognise current format and provide it in a form of array', (t) => {
   const format = getCurrentFormat(cm)
   t.true(Array.isArray(format))
@@ -61,6 +63,8 @@ test('Should recognise "ol" format', (t) => {
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   t.deepEqual(getCurrentFormat(cm), ['ol'])
 })
+
+/* Bold fomatting */
 
 test('formatBold should return a function', t =>
   t.is(typeof formatBold(cm), 'function')
@@ -132,6 +136,8 @@ test('Bold "unformatting" should unwrap without selection from "**" on right bor
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
 
+/* Italic fomatting */
+
 test('formatItalic should return a function', t =>
   t.is(typeof formatItalic(cm), 'function')
 )
@@ -186,6 +192,8 @@ test('Italic "unformatting" should unwrap without selection from "*"', (t) => {
   t.is(wrapper.state().code, 'Foo bar *baz*')
 })
 
+/* Nesting fomatting */
+
 test('Should correctly unformat nesting strings', (t) => {
   codeMirror.setValue('***Strong text***')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
@@ -195,6 +203,8 @@ test('Should correctly unformat nesting strings', (t) => {
   t.is(wrapper.state().code, '**Strong text**')
 })
 
+/* Ul fomatting */
+
 test('Ul fomratting should add "- " to every selected line', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
@@ -203,7 +213,7 @@ test('Ul fomratting should add "- " to every selected line', (t) => {
   t.is(wrapper.state().code, '- foo\n- bar')
 })
 
-test('Ul formattings should select all the lines after formatting', (t) => {
+test('Ul formatting should select all the lines after formatting', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
@@ -246,4 +256,35 @@ test('Ul fomratting should add a numeric index in front of every selected line',
   codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
   formatOl(cm)()
   t.is(wrapper.state().code, 'foo\n1. bar\n2. baz')
+})
+
+/* Ol fomatting */
+
+test('Ol formattings should select all the lines after formatting', (t) => {
+  codeMirror.setValue('foo\nbar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
+  formatOl(cm)()
+  t.is(codeMirror.getSelection(), '1. foo\n2. bar')
+})
+
+test('Ol formatting should add "#. " to the current line when nothing is selected', (t) => {
+  codeMirror.setValue('foo')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatUl(cm)()
+  t.is(wrapper.state().code, '- foo')
+})
+
+test('Ol formatting should add "1. " to the current line when nothing is selected', (t) => {
+  codeMirror.setValue('foo')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatOl(cm)()
+  t.is(wrapper.state().code, '1. foo')
+})
+
+test('Ol formatting should select current line after one line formatting', (t) => {
+  codeMirror.setValue('foo')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  formatOl(cm)()
+  t.is(codeMirror.getSelection(), '1. foo')
 })
