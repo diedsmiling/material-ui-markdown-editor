@@ -11,7 +11,8 @@ import {
   removeBold,
   removeItalic,
   formatUl,
-  removeUl
+  removeUl,
+  formatOl,
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -237,4 +238,12 @@ test('Ul unformat should remove "- " from current line if nothing is selected', 
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeUl(cm)()
   t.is(wrapper.state().code, 'foo\n- bar')
+})
+
+test('Ul fomratting should add a numeric index in front of every selected line', (t) => {
+  codeMirror.setValue('foo\nbar\nbaz')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
+  formatOl(cm)()
+  t.is(wrapper.state().code, 'foo\n1. bar\n2. baz')
 })
