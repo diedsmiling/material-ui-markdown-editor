@@ -11,7 +11,8 @@ import {
   removeItalic,
   formatUl,
   formatOl,
-  removeUl
+  removeUl,
+  removeOl
 } from '../formatting'
 
 const isActiveToken = (token, tokens) =>
@@ -32,6 +33,7 @@ const getSchema = (cm, tokens) => {
   const setUl = formatUl(cm)
   const unsetUl = removeUl(cm)
   const setOl = formatOl(cm)
+  const unsetOl = removeOl(cm)
 
   return [
     [
@@ -55,7 +57,7 @@ const getSchema = (cm, tokens) => {
       {
         style: getActiveStyle('ol'),
         icon: <NumbersList color={lightBlack} />,
-        onClick: isActiveToken('ol', tokens) ? unsetUl : setOl
+        onClick: isActiveToken('ol', tokens) ? unsetOl : setOl
       }
     ]
   ]

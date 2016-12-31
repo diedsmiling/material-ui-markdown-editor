@@ -12,7 +12,7 @@ import {
   removeItalic,
   formatUl,
   removeUl,
-  formatOl,
+  formatOl
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper

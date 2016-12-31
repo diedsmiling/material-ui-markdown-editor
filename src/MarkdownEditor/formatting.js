@@ -46,6 +46,10 @@ const getMatches = (signature, string, start = 0, accum = []) => {
   return normalize(accum, signature.length)
 }
 
+const getRemovingPartLength = (line, signature) => (
+  signature === '- ' ? signature.length : line.indexOf('.') + 2
+)
+
 const formatMultiline = signature => cm => () => {
   const { codeMirror } = cm
   const start = codeMirror.getCursor('start')
@@ -85,10 +89,12 @@ const removeMultiline = signature => cm => () => {
     .fill(start.line)
     .forEach((from, i) => {
       const currentLine = from + i
+      const line = codeMirror.getLine(currentLine)
+      console.log(getRemovingPartLength(line, signature))
       codeMirror.replaceRange(
         '',
         position(currentLine, 0),
-        position(currentLine, signature.length)
+        position(currentLine, getRemovingPartLength(line, signature))
       )
     })
 }
@@ -153,6 +159,8 @@ export const getCurrentFormat = (cm) => {
 }
 
 export const formatOl = formatMultiline('#. ')
+
+export const removeOl = removeMultiline('#. ')
 
 export const formatUl = formatMultiline('- ')
 
