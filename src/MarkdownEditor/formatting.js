@@ -20,7 +20,8 @@ const getPlaceholderBySignature = signature => (
   {
     '**': 'Strong text',
     '*': 'Emphasized text',
-    '- ': 'List item'
+    '- ': 'List item',
+    '#. ': 'List item'
   }[signature]
 )
 
@@ -54,11 +55,14 @@ const formatMultiline = signature => cm => () => {
   Array(length)
     .fill(start.line)
     .forEach((from, i) => {
+      const curentLine = i + 1
       const lineNumber = from + i
       const line = codeMirror.getLine(lineNumber)
-      const text = signature +
+      let text = signature +
         (isEmptyOneLineSelection(line, length) ? getPlaceholderBySignature(signature) : line)
-
+      if (signature === '#. ') {
+        text = text.replace(signature, `${curentLine}. `)
+      }
       codeMirror.replaceRange(
         text,
         position(lineNumber, 0),
@@ -147,6 +151,8 @@ export const getCurrentFormat = (cm) => {
 
   return type ? normalizeList(type.split(' '), line) : []
 }
+
+export const formatOl = formatMultiline('#. ')
 
 export const formatUl = formatMultiline('- ')
 
