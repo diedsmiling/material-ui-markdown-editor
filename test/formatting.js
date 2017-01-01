@@ -251,6 +251,14 @@ test('Ul unformat should remove "- " from current line if nothing is selected', 
   t.is(wrapper.state().code, 'foo\n- bar')
 })
 
+test('Ul unformat should select affected lines after being executed', (t) => {
+  codeMirror.setValue('- foo\n- bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
+  removeUl(cm)()
+  t.is(codeMirror.getSelection(), 'foo\nbar')
+})
+
 /* Ol fomatting */
 
 test('Ol fomratting should add a numeric index in front of every selected line', (t) => {
