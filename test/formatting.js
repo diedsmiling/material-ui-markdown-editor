@@ -236,7 +236,7 @@ test('Ul formatting should select current line after one line formatting', (t) =
   t.is(codeMirror.getSelection(), '- foo')
 })
 
-test('Ul unformat should remove  "- " from each selected line', (t) => {
+test('Ul unformatting should remove  "- " from each selected line', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -244,14 +244,14 @@ test('Ul unformat should remove  "- " from each selected line', (t) => {
   t.is(wrapper.state().code, 'foo\nbar')
 })
 
-test('Ul unformat should remove "- " from current line if nothing is selected', (t) => {
+test('Ul unformatting should remove "- " from current line if nothing is selected', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeUl(cm)()
   t.is(wrapper.state().code, 'foo\n- bar')
 })
 
-test('Ul unformat should select affected lines after being executed', (t) => {
+test('Ul unformatting should select affected lines after being executed', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -291,7 +291,7 @@ test('Ol formatting should select current line after one line formatting', (t) =
   t.is(codeMirror.getSelection(), '1. foo')
 })
 
-test('Ol unformat should remove numeric index from each selected line', (t) => {
+test('Ol unformatting should remove numeric index from each selected line', (t) => {
   codeMirror.setValue('9. foo\n10. bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -299,9 +299,17 @@ test('Ol unformat should remove numeric index from each selected line', (t) => {
   t.is(wrapper.state().code, 'foo\nbar')
 })
 
-test('Ul unformat should remove numeric index  from current line if nothing is selected', (t) => {
+test('Ol unformatting should remove numeric index  from current line if nothing is selected', (t) => {
   codeMirror.setValue('10. foo\n bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeOl(cm)()
   t.is(wrapper.state().code, 'foo\n bar')
+})
+
+test('Ol unformatting should select affected lines after being executed', (t) => {
+  codeMirror.setValue('9. foo\n10. bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 7 })
+  removeOl(cm)()
+  t.is(codeMirror.getSelection(), 'foo\nbar')
 })
