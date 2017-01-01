@@ -12,7 +12,8 @@ import {
   removeItalic,
   formatUl,
   removeUl,
-  formatOl
+  formatOl,
+  removeOl
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -235,7 +236,7 @@ test('Ul formatting should select current line after one line formatting', (t) =
   t.is(codeMirror.getSelection(), '- foo')
 })
 
-test('Ul unformat should remove from  "- " from each selected line', (t) => {
+test('Ul unformat should remove  "- " from each selected line', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -250,7 +251,9 @@ test('Ul unformat should remove "- " from current line if nothing is selected', 
   t.is(wrapper.state().code, 'foo\n- bar')
 })
 
-test('Ul fomratting should add a numeric index in front of every selected line', (t) => {
+/* Ol fomatting */
+
+test('Ol fomratting should add a numeric index in front of every selected line', (t) => {
   codeMirror.setValue('foo\nbar\nbaz')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
@@ -258,21 +261,12 @@ test('Ul fomratting should add a numeric index in front of every selected line',
   t.is(wrapper.state().code, 'foo\n1. bar\n2. baz')
 })
 
-/* Ol fomatting */
-
-test('Ol formattings should select all the lines after formatting', (t) => {
+test('Ol formattings should select all changed the lines after formatting', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
   formatOl(cm)()
   t.is(codeMirror.getSelection(), '1. foo\n2. bar')
-})
-
-test('Ol formatting should add "#. " to the current line when nothing is selected', (t) => {
-  codeMirror.setValue('foo')
-  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatUl(cm)()
-  t.is(wrapper.state().code, '- foo')
 })
 
 test('Ol formatting should add "1. " to the current line when nothing is selected', (t) => {
@@ -287,4 +281,19 @@ test('Ol formatting should select current line after one line formatting', (t) =
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   formatOl(cm)()
   t.is(codeMirror.getSelection(), '1. foo')
+})
+
+test('Ol unformat should remove numeric index from each selected line', (t) => {
+  codeMirror.setValue('9. foo\n10. bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
+  removeOl(cm)()
+  t.is(wrapper.state().code, 'foo\nbar')
+})
+
+test('Ul unformat should remove numeric index  from current line if nothing is selected', (t) => {
+  codeMirror.setValue('10. foo\n bar')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  removeOl(cm)()
+  t.is(wrapper.state().code, 'foo\n bar')
 })

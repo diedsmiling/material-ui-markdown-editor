@@ -90,7 +90,6 @@ const removeMultiline = signature => cm => () => {
     .forEach((from, i) => {
       const currentLine = from + i
       const line = codeMirror.getLine(currentLine)
-      console.log(getRemovingPartLength(line, signature))
       codeMirror.replaceRange(
         '',
         position(currentLine, 0),
