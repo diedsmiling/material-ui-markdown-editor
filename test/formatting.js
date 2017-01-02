@@ -206,6 +206,14 @@ test('Should correctly unformat nesting strings', (t) => {
 
 /* Ul fomatting */
 
+test('setUl should return a function', t =>
+  t.is(typeof setUl(cm), 'function')
+)
+
+test('removeUl should return a function', t =>
+  t.is(typeof removeUl(cm), 'function')
+)
+
 test('Ul fomratting should add "- " to every selected line', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
@@ -260,6 +268,14 @@ test('Ul cancellation should select affected lines after being executed', (t) =>
 })
 
 /* Ol fomatting */
+
+test('setOl should return a function', t =>
+  t.is(typeof setOl(cm), 'function')
+)
+
+test('removeOl should return a function', t =>
+  t.is(typeof removeOl(cm), 'function')
+)
 
 test('Ol fomratting should add a numeric index in front of every selected line', (t) => {
   codeMirror.setValue('foo\nbar\nbaz')
