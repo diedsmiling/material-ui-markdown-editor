@@ -157,11 +157,11 @@ export const getCurrentFormat = (cm) => {
   return type ? normalizeList(type.split(' '), line) : []
 }
 
-export const formatOl = formatMultiline('#. ')
+export const setOl = formatMultiline('#. ')
 
 export const removeOl = removeMultiline('#. ')
 
-export const formatUl = formatMultiline('- ')
+export const setUl = formatMultiline('- ')
 
 export const removeUl = removeMultiline('- ')
 
@@ -169,6 +169,6 @@ export const removeBold = removeInline('**')
 
 export const removeItalic = removeInline('*')
 
-export const formatBold = formatInline('**')
+export const setBold = formatInline('**')
 
-export const formatItalic = formatInline('*')
+export const setItalic = formatInline('*')

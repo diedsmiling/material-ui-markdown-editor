@@ -5,13 +5,13 @@ import BulletsList from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumbersList from 'material-ui/svg-icons/editor/format-list-numbered'
 import { lightBlack, grey400 } from 'material-ui/styles/colors'
 import {
-  formatBold,
-  formatItalic,
+  setBold,
   removeBold,
+  setItalic,
   removeItalic,
-  formatUl,
-  formatOl,
+  setUl,
   removeUl,
+  setOl,
   removeOl
 } from '../formatting'
 
@@ -26,38 +26,38 @@ const getStyleIfActive = tokens => token => (
 
 const getSchema = (cm, tokens) => {
   const getActiveStyle = getStyleIfActive(tokens)
-  const setBold = formatBold(cm)
-  const setItalic = formatItalic(cm)
-  const unsetBold = removeBold(cm)
-  const unsetItalic = removeItalic(cm)
-  const setUl = formatUl(cm)
-  const unsetUl = removeUl(cm)
-  const setOl = formatOl(cm)
-  const unsetOl = removeOl(cm)
+  const formatBold = setBold(cm)
+  const cancelBold = removeBold(cm)
+  const formatItalic = setItalic(cm)
+  const cancelItalic = removeItalic(cm)
+  const formatUl = setUl(cm)
+  const cancelUl = removeUl(cm)
+  const formatOl = setOl(cm)
+  const cancelOl = removeOl(cm)
 
   return [
     [
       {
         style: { marginLeft: 24, ...getActiveStyle('strong') },
         icon: <Bold color={lightBlack} />,
-        onClick: isActiveToken('strong', tokens) ? unsetBold : setBold
+        onClick: isActiveToken('strong', tokens) ? cancelBold : formatBold
       },
       {
         style: getActiveStyle('em'),
         icon: <Italic color={lightBlack} />,
-        onClick: isActiveToken('em', tokens) ? unsetItalic : setItalic
+        onClick: isActiveToken('em', tokens) ? cancelItalic : formatItalic
       }
     ],
     [
       {
         style: { marginLeft: 24, ...getActiveStyle('ul') },
         icon: <BulletsList color={lightBlack} />,
-        onClick: isActiveToken('ul', tokens) ? unsetUl : setUl
+        onClick: isActiveToken('ul', tokens) ? cancelUl : formatUl
       },
       {
         style: getActiveStyle('ol'),
         icon: <NumbersList color={lightBlack} />,
-        onClick: isActiveToken('ol', tokens) ? unsetOl : setOl
+        onClick: isActiveToken('ol', tokens) ? cancelOl : formatOl
       }
     ]
   ]

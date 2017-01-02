@@ -6,13 +6,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import Markdown from '../src/MarkdownEditor/MarkdownEditor'
 import {
   getCurrentFormat,
-  formatBold,
-  formatItalic,
+  setBold,
+  setItalic,
   removeBold,
   removeItalic,
-  formatUl,
+  setUl,
   removeUl,
-  formatOl,
+  setOl,
   removeOl
 } from '../src/MarkdownEditor/formatting'
 
@@ -67,8 +67,8 @@ test('Should recognise "ol" format', (t) => {
 
 /* Bold fomatting */
 
-test('formatBold should return a function', t =>
-  t.is(typeof formatBold(cm), 'function')
+test('setBold should return a function', t =>
+  t.is(typeof setBold(cm), 'function')
 )
 
 test('removeBold should return a function', t =>
@@ -78,7 +78,7 @@ test('removeBold should return a function', t =>
 test('Bold formatting should insert a placeholder when nothing is selected', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatBold(cm)()
+  setBold(cm)()
   t.is(wrapper.state().code, '**Strong text**')
 })
 
@@ -86,14 +86,14 @@ test('Bold formatting should wrap selection in "** **"', (t) => {
   codeMirror.setValue('Foo bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
-  formatBold(cm)()
+  setBold(cm)()
   t.is(wrapper.state().code, 'Foo **bar**')
 })
 
 test('Bold formatting should select placeholder when it is invoked', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatBold(cm)()
+  setBold(cm)()
   t.is(codeMirror.getSelection(), 'Strong text')
 })
 
@@ -101,11 +101,11 @@ test('Bold formatting should keep selection', (t) => {
   codeMirror.setValue('Foo bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
-  formatBold(cm)()
+  setBold(cm)()
   t.is(codeMirror.getSelection(), 'bar')
 })
 
-test('Bold "unformatting" should unwrap selection from "**"', (t) => {
+test('Bold "cancellation" should unwrap selection from "**"', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 6 }, { line: 0, ch: 9 })
@@ -113,7 +113,7 @@ test('Bold "unformatting" should unwrap selection from "**"', (t) => {
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
 
-test('Bold "unformatting" should unwrap without selection from "**"', (t) => {
+test('Bold "cancellation" should unwrap without selection from "**"', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setCursor({ line: 0, ch: 8 })
@@ -121,7 +121,7 @@ test('Bold "unformatting" should unwrap without selection from "**"', (t) => {
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
 
-test('Bold "unformatting" should unwrap without selection from "**" on left border', (t) => {
+test('Bold "cancellation" should unwrap without selection from "**" on left border', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setCursor({ line: 0, ch: 5 })
@@ -129,7 +129,7 @@ test('Bold "unformatting" should unwrap without selection from "**" on left bord
   t.is(wrapper.state().code, 'Foo bar **baz**')
 })
 
-test('Bold "unformatting" should unwrap without selection from "**" on right border', (t) => {
+test('Bold "cancellation" should unwrap without selection from "**" on right border', (t) => {
   codeMirror.setValue('Foo **bar** **baz**')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setCursor({ line: 0, ch: 10 })
@@ -139,8 +139,8 @@ test('Bold "unformatting" should unwrap without selection from "**" on right bor
 
 /* Italic fomatting */
 
-test('formatItalic should return a function', t =>
-  t.is(typeof formatItalic(cm), 'function')
+test('setItalic should return a function', t =>
+  t.is(typeof setItalic(cm), 'function')
 )
 
 test('removeItalic should return a function', t =>
@@ -150,7 +150,7 @@ test('removeItalic should return a function', t =>
 test('Italic formatting should insert a placeholder when nothing is selected', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatItalic(cm)()
+  setItalic(cm)()
   t.is(wrapper.state().code, '*Emphasized text*')
 })
 
@@ -158,14 +158,14 @@ test('Italic formatting should wrap selection in "* *"', (t) => {
   codeMirror.setValue('Foo bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
-  formatItalic(cm)()
+  setItalic(cm)()
   t.is(wrapper.state().code, 'Foo *bar*')
 })
 
 test('Italic formatting should select placeholder when it is invoked', (t) => {
   codeMirror.setValue('')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatItalic(cm)()
+  setItalic(cm)()
   t.is(codeMirror.getSelection(), 'Emphasized text')
 })
 
@@ -173,11 +173,11 @@ test('Italic formatting should keep selection', (t) => {
   codeMirror.setValue('Foo bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 4 }, { line: 0, ch: 7 })
-  formatItalic(cm)()
+  setItalic(cm)()
   t.is(codeMirror.getSelection(), 'bar')
 })
 
-test('Italic "unformatting" should unwrap selection from "*"', (t) => {
+test('Italic "cancellation" should unwrap selection from "*"', (t) => {
   codeMirror.setValue('Foo *bar* *baz*')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 5 }, { line: 0, ch: 8 })
@@ -185,7 +185,7 @@ test('Italic "unformatting" should unwrap selection from "*"', (t) => {
   t.is(wrapper.state().code, 'Foo bar *baz*')
 })
 
-test('Italic "unformatting" should unwrap without selection from "*"', (t) => {
+test('Italic "cancellation" should unwrap without selection from "*"', (t) => {
   codeMirror.setValue('Foo *bar* *baz*')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setCursor({ line: 0, ch: 6 })
@@ -210,7 +210,7 @@ test('Ul fomratting should add "- " to every selected line', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
-  formatUl(cm)()
+  setUl(cm)()
   t.is(wrapper.state().code, '- foo\n- bar')
 })
 
@@ -218,25 +218,25 @@ test('Ul formatting should select all the lines after formatting', (t) => {
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
-  formatUl(cm)()
+  setUl(cm)()
   t.is(codeMirror.getSelection(), '- foo\n- bar')
 })
 
 test('Ul formatting should add "- " to the current line when nothing is selected', (t) => {
   codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatUl(cm)()
+  setUl(cm)()
   t.is(wrapper.state().code, '- foo')
 })
 
 test('Ul formatting should select current line after one line formatting', (t) => {
   codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatUl(cm)()
+  setUl(cm)()
   t.is(codeMirror.getSelection(), '- foo')
 })
 
-test('Ul unformatting should remove  "- " from each selected line', (t) => {
+test('Ul cancellation should remove  "- " from each selected line', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -244,14 +244,14 @@ test('Ul unformatting should remove  "- " from each selected line', (t) => {
   t.is(wrapper.state().code, 'foo\nbar')
 })
 
-test('Ul unformatting should remove "- " from current line if nothing is selected', (t) => {
+test('Ul cancellation should remove "- " from current line if nothing is selected', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeUl(cm)()
   t.is(wrapper.state().code, 'foo\n- bar')
 })
 
-test('Ul unformatting should select affected lines after being executed', (t) => {
+test('Ul cancellation should select affected lines after being executed', (t) => {
   codeMirror.setValue('- foo\n- bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -265,7 +265,7 @@ test('Ol fomratting should add a numeric index in front of every selected line',
   codeMirror.setValue('foo\nbar\nbaz')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
-  formatOl(cm)()
+  setOl(cm)()
   t.is(wrapper.state().code, 'foo\n1. bar\n2. baz')
 })
 
@@ -273,25 +273,25 @@ test('Ol formattings should select all changed the lines after formatting', (t) 
   codeMirror.setValue('foo\nbar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 3 })
-  formatOl(cm)()
+  setOl(cm)()
   t.is(codeMirror.getSelection(), '1. foo\n2. bar')
 })
 
 test('Ol formatting should add "1. " to the current line when nothing is selected', (t) => {
   codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatOl(cm)()
+  setOl(cm)()
   t.is(wrapper.state().code, '1. foo')
 })
 
 test('Ol formatting should select current line after one line formatting', (t) => {
   codeMirror.setValue('foo')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
-  formatOl(cm)()
+  setOl(cm)()
   t.is(codeMirror.getSelection(), '1. foo')
 })
 
-test('Ol unformatting should remove numeric index from each selected line', (t) => {
+test('Ol cancellation should remove numeric index from each selected line', (t) => {
   codeMirror.setValue('9. foo\n10. bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 5 })
@@ -299,14 +299,14 @@ test('Ol unformatting should remove numeric index from each selected line', (t) 
   t.is(wrapper.state().code, 'foo\nbar')
 })
 
-test('Ol unformatting should remove numeric index  from current line if nothing is selected', (t) => {
+test('Ol cancellation should remove numeric index  from current line if nothing is selected', (t) => {
   codeMirror.setValue('10. foo\n bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   removeOl(cm)()
   t.is(wrapper.state().code, 'foo\n bar')
 })
 
-test('Ol unformatting should select affected lines after being executed', (t) => {
+test('Ol cancellation should select affected lines after being executed', (t) => {
   codeMirror.setValue('9. foo\n10. bar')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 0, ch: 0 }, { line: 1, ch: 7 })
