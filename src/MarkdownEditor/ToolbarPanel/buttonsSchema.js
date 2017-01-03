@@ -1,8 +1,10 @@
 import React from 'react'
 import Bold from 'material-ui/svg-icons/editor/format-bold'
 import Italic from 'material-ui/svg-icons/editor/format-italic'
+import Size from 'material-ui/svg-icons/editor/format-size'
 import BulletsList from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumbersList from 'material-ui/svg-icons/editor/format-list-numbered'
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 import { lightBlack, grey400 } from 'material-ui/styles/colors'
 import {
   setBold,
@@ -14,6 +16,7 @@ import {
   setOl,
   removeOl
 } from '../formatting'
+import FlexWrapper from './FlexWrapper'
 
 const isActiveToken = (token, tokens) =>
   tokens.length && tokens[0] === token
@@ -38,7 +41,15 @@ const getSchema = (cm, tokens) => {
   return [
     [
       {
-        style: { marginLeft: 24, ...getActiveStyle('strong') },
+        style: { marginLeft: 24, ...getActiveStyle('heading') },
+        icon:
+          <FlexWrapper>
+            <Size color={lightBlack} />
+            <NavigationExpandMoreIcon />
+          </FlexWrapper>
+      },
+      {
+        style: { ...getActiveStyle('strong') },
         icon: <Bold color={lightBlack} />,
         onClick: isActiveToken('strong', tokens) ? cancelBold : formatBold
       },
