@@ -42,6 +42,7 @@ const getSchema = (cm, tokens) => {
     [
       {
         style: { marginLeft: 24, ...getActiveStyle('heading') },
+        isDropDown: true,
         icon:
           <FlexWrapper>
             <Size color={lightBlack} />

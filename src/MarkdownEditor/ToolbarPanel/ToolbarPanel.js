@@ -8,7 +8,7 @@ const ToolbarPanel = ({ cm, tokens }) => (
     <ToolbarGroup firstChild>
       {
         getButtonsSchema(cm, tokens).map((section, i) => (
-          <ToolbarSection key={i} buttons={section} />
+          <ToolbarSection key={i} items={section} />
         ))
       }
     </ToolbarGroup>

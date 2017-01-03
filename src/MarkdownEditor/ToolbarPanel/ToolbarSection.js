@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
 import { ToolbarSeparator } from 'material-ui/Toolbar'
 import Button from './Button'
+import DropDown from './DropDown'
 
-const ToolbarSection = ({ buttons }) => (
+const ToolbarSection = ({ items }) => (
   <div style={{ display: 'flex' }}>
     {
-      buttons.map((button, key) => (
-        <Button
-          key={key}
-          {...button}
-        />
+      items.map((item, key) => (
+        item.isDropDown
+          ? <DropDown key={key} {...item} />
+          : <Button key={key} {...item} />
       ))
     }
     <ToolbarSeparator />
@@ -17,7 +17,7 @@ const ToolbarSection = ({ buttons }) => (
 )
 
 ToolbarSection.propTypes = {
-  buttons: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       style: PropTypes.object,
       onClick: PropTypes.func,
