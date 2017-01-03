@@ -3,25 +3,18 @@ import injectTapEventPlugin from 'react-tap-event-plugin'  // eslint-disable-lin
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MarkdownEditor from './MarkdownEditor'
 
-class MarkdownEditorContainer extends Component {
-  static propTypes = {
-    wrapInTheme: PropTypes.bool
-  }
-  componentDidMount() {
-    if (this.props.wrapInTheme) {
-      injectTapEventPlugin()
-    }
-  }
-  render() {
-    return this.props.wrapInTheme
-    ?
-      <MuiThemeProvider>
-        <MarkdownEditor />
-      </MuiThemeProvider>
-      :
-      <MarkdownEditor />
-  }
+injectTapEventPlugin()
 
+const MarkdownEditorContainer = ({ wrapInTheme }) => (
+  wrapInTheme
+  ?
+    <MuiThemeProvider>
+      <MarkdownEditor />
+    </MuiThemeProvider>
+  : <MarkdownEditor />
+)
+MarkdownEditorContainer.propTypes = {
+  wrapInTheme: PropTypes.bool
 }
 
 export default MarkdownEditorContainer

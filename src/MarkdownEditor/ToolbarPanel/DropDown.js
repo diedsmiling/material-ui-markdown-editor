@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
-console.log(MenuItem)
-const DropDown = ({ icon, style }) => (
+
+const DropDown = ({ icon }) => (
   <IconMenu
     iconButtonElement={
       <IconButton>
-        {icon}
+        { icon }
       </IconButton>
     }
   >
     <MenuItem value="AL" primaryText="Test" />
-    <MenuItem value="AL" primaryText="Test1" />
+    <MenuItem value="AL1" primaryText="Test1" />
   </IconMenu>
 )
+
+DropDown.propTypes = {
+  icon: PropTypes.element,
+  style: PropTypes.object //eslint-disable-line
+}
 
 export default DropDown

@@ -35,7 +35,7 @@ test('Should wrap in MuiThemeProvider if wrapInTheme prop is passed', (t) => {
   ))
 })
 
-test('Should invoke in injectTapEventPlugin if wrapInTheme prop is passed', (t) => {
-  mount(<MarkdownEditorContainer wrapInTheme />)
+test('Should invoke in injectTapEventPlugin', (t) => {
+  mount(<MarkdownEditorContainer />)
   t.true(injectTapEventPluginStub.calledOnce)
 })
