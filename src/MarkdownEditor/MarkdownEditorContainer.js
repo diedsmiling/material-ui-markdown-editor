@@ -13,6 +13,7 @@ const MarkdownEditorContainer = ({ wrapInTheme }) => (
     </MuiThemeProvider>
   : <MarkdownEditor />
 )
+
 MarkdownEditorContainer.propTypes = {
   wrapInTheme: PropTypes.bool
 }
