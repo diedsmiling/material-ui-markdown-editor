@@ -3,7 +3,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 
-const DropDown = ({ icon, style }) => (
+const DropDown = ({ icon, style, options }) => (
   <IconMenu
     iconButtonElement={
       <IconButton style={style}>
@@ -11,14 +11,21 @@ const DropDown = ({ icon, style }) => (
       </IconButton>
     }
   >
-    <MenuItem value="AL" primaryText="Test" />
-    <MenuItem value="AL1" primaryText="Test1" />
+    {
+      options.map(option => <MenuItem {...option} />)
+    }
   </IconMenu>
 )
 
 DropDown.propTypes = {
   icon: PropTypes.element,
-  style: PropTypes.object //eslint-disable-line
+  style: PropTypes.object, //eslint-disable-line
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      style: PropTypes.object, //eslint-disable-line
+      primaryText: PropTypes.string
+    })
+  )
 }
 
 export default DropDown

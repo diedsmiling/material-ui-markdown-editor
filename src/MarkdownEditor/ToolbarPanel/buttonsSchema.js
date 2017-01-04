@@ -43,6 +43,20 @@ const getSchema = (cm, tokens) => {
       {
         style: { marginLeft: 24, padding: '0', ...getActiveStyle('heading') },
         isDropDown: true,
+        options: [
+          {
+            primaryText: 'Heading 1',
+            style: { fontSize: 12 }
+          },
+          {
+            primaryText: 'Heading 2',
+            style: { fontSize: 14 }
+          },
+          {
+            primaryText: 'Heading 3',
+            style: { fontSize: 16 }
+          }
+        ],
         icon:
           <FlexWrapper>
             <Size color={lightBlack} />

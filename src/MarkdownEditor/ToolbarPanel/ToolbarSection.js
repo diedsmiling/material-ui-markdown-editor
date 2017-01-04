@@ -4,7 +4,7 @@ import Button from './Button'
 import DropDown from './DropDown'
 
 const ToolbarSection = ({ items }) => (
-  <div style={{ display: 'flex', 'align-items': 'center' }}>
+  <div style={{ display: 'flex', alignItems: 'center' }}>
     {
       items.map((item, key) => (
         item.isDropDown

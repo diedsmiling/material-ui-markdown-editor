@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import injectTapEventPlugin from 'react-tap-event-plugin'  // eslint-disable-line
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MarkdownEditor from './MarkdownEditor'
