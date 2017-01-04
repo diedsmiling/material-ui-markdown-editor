@@ -3,10 +3,10 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 
-const DropDown = ({ icon }) => (
+const DropDown = ({ icon, style }) => (
   <IconMenu
     iconButtonElement={
-      <IconButton>
+      <IconButton style={style}>
         { icon }
       </IconButton>
     }

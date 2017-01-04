@@ -41,7 +41,7 @@ const getSchema = (cm, tokens) => {
   return [
     [
       {
-        style: { marginLeft: 24, ...getActiveStyle('heading') },
+        style: { marginLeft: 24, padding: '0', ...getActiveStyle('heading') },
         isDropDown: true,
         icon:
           <FlexWrapper>
