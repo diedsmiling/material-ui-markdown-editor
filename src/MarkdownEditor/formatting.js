@@ -21,7 +21,10 @@ const getPlaceholderBySignature = signature => (
     '**': 'Strong text',
     '*': 'Emphasized text',
     '- ': 'List item',
-    '#. ': 'List item'
+    '#. ': 'List item',
+    '# ': 'Heading',
+    '## ': 'Heading',
+    '### ': 'Heading'
   }[signature]
 )
 
@@ -156,6 +159,12 @@ export const getCurrentFormat = (cm) => {
 
   return type ? normalizeList(type.split(' '), line) : []
 }
+
+export const setHeading1 = formatMultiline('# ')
+
+export const setHeading2 = formatMultiline('## ')
+
+export const setHeading3 = formatMultiline('### ')
 
 export const setOl = formatMultiline('#. ')
 

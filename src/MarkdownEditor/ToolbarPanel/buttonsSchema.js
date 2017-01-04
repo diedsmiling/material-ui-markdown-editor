@@ -14,7 +14,10 @@ import {
   setUl,
   removeUl,
   setOl,
-  removeOl
+  removeOl,
+  setHeading1,
+  setHeading2,
+  setHeading3
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
 
@@ -27,6 +30,10 @@ const getStyleIfActive = tokens => token => (
     : {}
 )
 
+const setHeading = (schema, cm) => (e, object) => {
+  schema[parseInt(object.key, 10)](cm)
+}
+
 const getSchema = (cm, tokens) => {
   const getActiveStyle = getStyleIfActive(tokens)
   const formatBold = setBold(cm)
@@ -37,12 +44,22 @@ const getSchema = (cm, tokens) => {
   const cancelUl = removeUl(cm)
   const formatOl = setOl(cm)
   const cancelOl = removeOl(cm)
+  const formatH1 = setHeading1(cm)
+  const formatH2 = setHeading2(cm)
+  const formatH3 = setHeading3(cm)
+  const fomratHeading = setHeading([formatH1, formatH2, formatH3], cm)
 
   return [
     [
       {
-        style: { marginLeft: 24, padding: '0', ...getActiveStyle('heading') },
+        style: {
+          marginLeft: 24,
+          height: 'auto',
+          padding: '6',
+          ...getActiveStyle('header')
+        },
         isDropDown: true,
+        onItemTouchTap: fomratHeading,
         options: [
           {
             primaryText: 'Heading 1',
