@@ -50,7 +50,7 @@ const getMatches = (signature, string, start = 0, accum = []) => {
 }
 
 const getRemovingPartLength = (line, signature) => (
-  signature === '- ' ? signature.length : line.indexOf('.') + 2
+  ['- ', '### ', '## ', '#'].includes(signature) ? signature.length : line.indexOf('.') + 2
 )
 
 const formatMultiline = signature => cm => () => {
@@ -160,11 +160,17 @@ export const getCurrentFormat = (cm) => {
   return type ? normalizeList(type.split(' '), line) : []
 }
 
-export const setHeading1 = formatMultiline('# ')
+export const setH1 = formatMultiline('# ')
 
-export const setHeading2 = formatMultiline('## ')
+export const removeH1 = removeMultiline('# ')
 
-export const setHeading3 = formatMultiline('### ')
+export const setH2 = formatMultiline('## ')
+
+export const removeH2 = removeMultiline('#№ ')
+
+export const setH3 = formatMultiline('### ')
+
+export const removeH3 = removeMultiline('### ')
 
 export const setOl = formatMultiline('#. ')
 
