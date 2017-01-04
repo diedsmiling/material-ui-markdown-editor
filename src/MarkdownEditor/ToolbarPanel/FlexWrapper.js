@@ -7,5 +7,10 @@ const FlexWrapper = ({ children }) =>
 export default FlexWrapper
 
 FlexWrapper.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(
+      PropTypes.element
+    )
+  ])
 }
