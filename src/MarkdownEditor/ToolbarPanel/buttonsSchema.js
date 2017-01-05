@@ -24,8 +24,8 @@ import {
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
 
-const isActiveToken = (token, tokens) =>
-  tokens.length && tokens[0] === token
+const isActiveToken = (token, tokens, index = 0) =>
+  tokens.length && tokens[index] === token
 
 const getStyleIfActive = tokens => token => (
   isActiveToken(token, tokens)
@@ -47,14 +47,9 @@ const getSchema = (cm, tokens) => {
   const cancelUl = removeUl(cm)
   const formatOl = setOl(cm)
   const cancelOl = removeOl(cm)
-  const formatH1 = setH1(cm)
-  const cancelH1 = removeH1(cm)
-  const formatH2 = setH2(cm)
-  const cancelH2 = removeH2(cm)
-  const formatH3 = setH3(cm)
-  const cancelH3 = removeH3(cm)
-  const formatHeading = handleHeading([formatH1, formatH2, formatH3])
-  const cancelHeading = handleHeading([cancelH1, cancelH2, cancelH3])
+  const handleH1 = isActiveToken('header-1', tokens, 1) ? removeH1(cm) : setH1(cm)
+  const handleH2 = isActiveToken('header-2', tokens, 1) ? removeH2(cm) : setH2(cm)
+  const handleH3 = isActiveToken('header-3', tokens, 1) ? removeH3(cm) : setH3(cm)
 
   return [
     [
@@ -66,7 +61,7 @@ const getSchema = (cm, tokens) => {
           ...getActiveStyle('header')
         },
         isDropDown: true,
-        onItemTouchTap: isActiveToken('header', tokens) ? cancelHeading : formatHeading,
+        onItemTouchTap: handleHeading([handleH1, handleH2, handleH3]),
         options: [
           {
             primaryText: 'Heading 1',
