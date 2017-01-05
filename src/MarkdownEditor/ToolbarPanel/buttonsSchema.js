@@ -57,7 +57,7 @@ const getSchema = (cm, tokens) => {
         style: {
           marginLeft: 24,
           height: 'auto',
-          padding: '6 6 6 6',
+          padding: 6,
           ...getActiveStyle('header')
         },
         isDropDown: true,
