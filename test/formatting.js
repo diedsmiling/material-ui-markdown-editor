@@ -15,7 +15,9 @@ import {
   setOl,
   removeOl,
   setH1,
-  removeH1
+  removeH1,
+  setH2,
+  removeH2
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -334,10 +336,34 @@ test('Ol cancellation should select affected lines after being executed', (t) =>
 
 /* setH1 fomatting */
 
-test('Heading 1 setH1 should be a function', t =>
+test('setH1 should be a function', t =>
   t.is(typeof setH1(cm), 'function')
 )
 
-test('Heading 1 removeH1 should be a function', t =>
+test('removeH1 should be a function', t =>
   t.is(typeof removeH1(cm), 'function')
 )
+
+test('setH1 fomratting should add a # in front of every selected line', (t) => {
+  codeMirror.setValue('foo\nbar\nbaz')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
+  setH1(cm)()
+  t.is(wrapper.state().code, 'foo\n# bar\n# baz')
+})
+
+test('setH2 should be a function', t =>
+  t.is(typeof setH2(cm), 'function')
+)
+
+test('removeH2 should be a function', t =>
+  t.is(typeof removeH2(cm), 'function')
+)
+
+test('setH2 fomratting should add a # in front of every selected line', (t) => {
+  codeMirror.setValue('foo\nbar\nbaz')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
+  setH2(cm)()
+  t.is(wrapper.state().code, 'foo\n## bar\n## baz')
+})
