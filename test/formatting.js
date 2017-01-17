@@ -13,7 +13,9 @@ import {
   setUl,
   removeUl,
   setOl,
-  removeOl
+  removeOl,
+  setH1,
+  removeH1
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -329,3 +331,13 @@ test('Ol cancellation should select affected lines after being executed', (t) =>
   removeOl(cm)()
   t.is(codeMirror.getSelection(), 'foo\nbar')
 })
+
+/* setH1 fomatting */
+
+test('Heading 1 setH1 should be a function', t =>
+  t.is(typeof setH1(cm), 'function')
+)
+
+test('Heading 1 removeH1 should be a function', t =>
+  t.is(typeof removeH1(cm), 'function')
+)
