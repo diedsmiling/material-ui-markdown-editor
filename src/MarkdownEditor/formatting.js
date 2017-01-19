@@ -180,10 +180,14 @@ export const setUl = formatMultiline('- ')
 
 export const removeUl = removeMultiline('- ')
 
+export const setBold = formatInline('**')
+
 export const removeBold = removeInline('**')
+
+export const setItalic = formatInline('*')
 
 export const removeItalic = removeInline('*')
 
-export const setBold = formatInline('**')
+export const setCode = formatInline('`')
 
-export const setItalic = formatInline('*')
+export const removeCode = removeInline('`')

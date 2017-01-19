@@ -4,6 +4,8 @@ import Italic from 'material-ui/svg-icons/editor/format-italic'
 import Size from 'material-ui/svg-icons/editor/format-size'
 import BulletsList from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumbersList from 'material-ui/svg-icons/editor/format-list-numbered'
+import Quote from 'material-ui/svg-icons/editor/format-quote'
+import Code from 'material-ui/svg-icons/action/code'
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 import { lightBlack, grey400 } from 'material-ui/styles/colors'
 import {
@@ -20,7 +22,9 @@ import {
   setH2,
   removeH2,
   setH3,
-  removeH3
+  removeH3,
+  setCode,
+  removeCode
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
 
@@ -47,6 +51,8 @@ const getSchema = (cm, tokens) => {
   const cancelUl = removeUl(cm)
   const formatOl = setOl(cm)
   const cancelOl = removeOl(cm)
+  const formatCode = setCode(cm)
+  const cancelCode = removeCode(cm)
   const handleH1 = isActiveToken('header-1', tokens, 1) ? removeH1(cm) : setH1(cm)
   const handleH2 = isActiveToken('header-2', tokens, 1) ? removeH2(cm) : setH2(cm)
   const handleH3 = isActiveToken('header-3', tokens, 1) ? removeH3(cm) : setH3(cm)
@@ -103,6 +109,18 @@ const getSchema = (cm, tokens) => {
         style: getActiveStyle('ol'),
         icon: <NumbersList color={lightBlack} />,
         onClick: isActiveToken('ol', tokens) ? cancelOl : formatOl
+      }
+    ],
+    [
+      {
+        style: { marginLeft: 24, ...getActiveStyle('code') },
+        icon: <Code color={lightBlack} />,
+        onClick: isActiveToken('code', tokens) ? cancelCode : formatCode
+      },
+      {
+        style: { ...getActiveStyle('code') },
+        icon: <Quote color={lightBlack} />,
+        onClick: isActiveToken('code', tokens) ? cancelCode : formatCode
       }
     ]
   ]
