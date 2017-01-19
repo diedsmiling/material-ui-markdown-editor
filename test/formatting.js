@@ -17,7 +17,9 @@ import {
   setH1,
   removeH1,
   setH2,
-  removeH2
+  removeH2,
+  setH3,
+  removeH3
 } from '../src/MarkdownEditor/formatting'
 
 let wrapper
@@ -360,10 +362,26 @@ test('removeH2 should be a function', t =>
   t.is(typeof removeH2(cm), 'function')
 )
 
-test('setH2 fomratting should add a # in front of every selected line', (t) => {
+test('setH2 fomratting should add a ## in front of every selected line', (t) => {
   codeMirror.setValue('foo\nbar\nbaz')
   CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
   codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
   setH2(cm)()
   t.is(wrapper.state().code, 'foo\n## bar\n## baz')
+})
+
+test('setH3 should be a function', t =>
+  t.is(typeof setH3(cm), 'function')
+)
+
+test('removeH3 should be a function', t =>
+  t.is(typeof removeH3(cm), 'function')
+)
+
+test('setH3 fomratting should add a ### in front of every selected line', (t) => {
+  codeMirror.setValue('foo\nbar\nbaz')
+  CM.signal(codeMirror, 'change', codeMirror, { origin: '+input' })
+  codeMirror.setSelection({ line: 1, ch: 0 }, { line: 2, ch: 3 })
+  setH3(cm)()
+  t.is(wrapper.state().code, 'foo\n### bar\n### baz')
 })
