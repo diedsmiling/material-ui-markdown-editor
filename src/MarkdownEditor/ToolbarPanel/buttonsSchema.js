@@ -6,6 +6,8 @@ import BulletsList from 'material-ui/svg-icons/editor/format-list-bulleted'
 import NumbersList from 'material-ui/svg-icons/editor/format-list-numbered'
 import Quote from 'material-ui/svg-icons/editor/format-quote'
 import Code from 'material-ui/svg-icons/action/code'
+import ImageIcon from 'material-ui/svg-icons/image/image'
+import LinkIcon from 'material-ui/svg-icons/editor/insert-link'
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 import { lightBlack, grey400 } from 'material-ui/styles/colors'
 import {
@@ -125,6 +127,18 @@ const getSchema = (cm, tokens) => {
         style: { ...getActiveStyle('quote') },
         icon: <Quote color={lightBlack} />,
         onClick: isActiveToken('quote', tokens) ? cancelQuote : formatQuote
+      }
+    ],
+    [
+      {
+        style: { marginLeft: 24, ...getActiveStyle('quote') },
+        icon: <LinkIcon color={lightBlack} />,
+        onClick: isActiveToken('quote', tokens) ? cancelQuote : formatQuote
+      },
+      {
+        style: { ...getActiveStyle('comment') },
+        icon: <ImageIcon color={lightBlack} />,
+        onClick: isActiveToken('comment', tokens) ? cancelCode : formatCode
       }
     ]
   ]

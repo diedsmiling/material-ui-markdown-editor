@@ -55,6 +55,7 @@ const getRemovingPartLength = (line, signature) => (
   ['- ', '### ', '## ', '# ', '> '].includes(signature) ? signature.length : line.indexOf('.') + 2
 )
 
+
 const formatMultiline = signature => cm => () => {
   const { codeMirror } = cm
   const start = codeMirror.getCursor('start')
