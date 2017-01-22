@@ -24,7 +24,9 @@ const getPlaceholderBySignature = signature => (
     '#. ': 'List item',
     '# ': 'Heading',
     '## ': 'Heading',
-    '### ': 'Heading'
+    '### ': 'Heading',
+    '`': 'Code',
+    '> ': 'Quote'
   }[signature]
 )
 
