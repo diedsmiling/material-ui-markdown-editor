@@ -50,7 +50,7 @@ const getMatches = (signature, string, start = 0, accum = []) => {
 }
 
 const getRemovingPartLength = (line, signature) => (
-  ['- ', '### ', '## ', '# '].includes(signature) ? signature.length : line.indexOf('.') + 2
+  ['- ', '### ', '## ', '# ', '> '].includes(signature) ? signature.length : line.indexOf('.') + 2
 )
 
 const formatMultiline = signature => cm => () => {
@@ -191,3 +191,7 @@ export const removeItalic = removeInline('*')
 export const setCode = formatInline('`')
 
 export const removeCode = removeInline('`')
+
+export const setQuote = formatMultiline('> ')
+
+export const removeQuote = removeMultiline('> ')

@@ -24,7 +24,9 @@ import {
   setH3,
   removeH3,
   setCode,
-  removeCode
+  removeCode,
+  setQuote,
+  removeQuote
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
 
@@ -53,6 +55,8 @@ const getSchema = (cm, tokens) => {
   const cancelOl = removeOl(cm)
   const formatCode = setCode(cm)
   const cancelCode = removeCode(cm)
+  const formatQuote = setQuote(cm)
+  const cancelQuote = removeQuote(cm)
   const handleH1 = isActiveToken('header-1', tokens, 1) ? removeH1(cm) : setH1(cm)
   const handleH2 = isActiveToken('header-2', tokens, 1) ? removeH2(cm) : setH2(cm)
   const handleH3 = isActiveToken('header-3', tokens, 1) ? removeH3(cm) : setH3(cm)
@@ -113,14 +117,14 @@ const getSchema = (cm, tokens) => {
     ],
     [
       {
-        style: { marginLeft: 24, ...getActiveStyle('code') },
+        style: { marginLeft: 24, ...getActiveStyle('comment') },
         icon: <Code color={lightBlack} />,
-        onClick: isActiveToken('code', tokens) ? cancelCode : formatCode
+        onClick: isActiveToken('comment', tokens) ? cancelCode : formatCode
       },
       {
-        style: { ...getActiveStyle('code') },
+        style: { ...getActiveStyle('quote') },
         icon: <Quote color={lightBlack} />,
-        onClick: isActiveToken('code', tokens) ? cancelCode : formatCode
+        onClick: isActiveToken('quote', tokens) ? cancelQuote : formatQuote
       }
     ]
   ]
