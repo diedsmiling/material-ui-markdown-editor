@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-export default class MarkdownEditor extends React.Component {
+export default class LinkDialog extends React.Component {
   constructor() {
     super()
     this.state = {

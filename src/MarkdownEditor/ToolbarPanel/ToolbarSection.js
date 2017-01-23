@@ -27,7 +27,7 @@ ToolbarSection.propTypes = {
 }
 
 ToolbarSection.contextTypes = {
-  color: PropTypes.string.isRequired
+  isDialogOpen: PropTypes.bool.isRequired
 }
 
 export default ToolbarSection

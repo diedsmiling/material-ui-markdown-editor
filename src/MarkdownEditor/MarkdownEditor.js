@@ -8,7 +8,7 @@ import { getCurrentFormat } from './formatting'
 
 export default class MarkdownEditor extends React.Component {
   static childContextTypes = {
-    color: React.PropTypes.string
+    isDialogOpen: React.PropTypes.bool
   }
 
   constructor() {
@@ -23,7 +23,7 @@ export default class MarkdownEditor extends React.Component {
   }
 
   getChildContext() {
-    return { color: 'purple' }
+    return { isDialogOpen: false }
   }
 
   componentDidMount() {
@@ -53,10 +53,10 @@ export default class MarkdownEditor extends React.Component {
       lineNumbers: true,
       mode: 'markdown'
     }
-    // <LinkDialog isDialogOpen={this.state.isDialogOpen} /> 
+    console.log(this.context);
     return (
       <div>
-
+        <LinkDialog />
         <ToolbarPanel
           toggleDialog={this.toggleDialog}
           cm={this.state.cm}
