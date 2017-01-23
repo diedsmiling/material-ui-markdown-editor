@@ -3,13 +3,13 @@ import { ToolbarSeparator } from 'material-ui/Toolbar'
 import Button from './Button'
 import DropDown from './DropDown'
 
-const ToolbarSection = ({ items }, { color }) => (
+const ToolbarSection = ({ items }) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     {
       items.map((item, key) => (
         item.isDropDown
           ? <DropDown key={key} {...item} />
-          : <Button key={key} {...item} color={color} />
+          : <Button key={key} {...item} />
       ))
     }
     <ToolbarSeparator />
@@ -21,13 +21,10 @@ ToolbarSection.propTypes = {
     PropTypes.shape({
       style: PropTypes.object,
       onClick: PropTypes.func,
-      icon: PropTypes.element
+      icon: PropTypes.element,
+      getContext: PropTypes.bool
     })
   )
-}
-
-ToolbarSection.contextTypes = {
-  isDialogOpen: PropTypes.bool.isRequired
 }
 
 export default ToolbarSection

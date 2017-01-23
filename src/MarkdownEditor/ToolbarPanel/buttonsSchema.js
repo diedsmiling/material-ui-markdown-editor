@@ -45,6 +45,10 @@ const handleHeading = schema => (e, object) => {
   schema[parseInt(object.key, 10)]()
 }
 
+const openDialog = context => () => {
+  context.isDialogOpen = true //eslint-disable-line
+}
+
 const getSchema = (cm, tokens) => {
   const getActiveStyle = getStyleIfActive(tokens)
   const formatBold = setBold(cm)
@@ -133,7 +137,8 @@ const getSchema = (cm, tokens) => {
       {
         style: { marginLeft: 24, ...getActiveStyle('quote') },
         icon: <LinkIcon color={lightBlack} />,
-        onClick: isActiveToken('quote', tokens) ? cancelQuote : formatQuote
+        getContext: true,
+        onClick: openDialog
       },
       {
         style: { ...getActiveStyle('comment') },
