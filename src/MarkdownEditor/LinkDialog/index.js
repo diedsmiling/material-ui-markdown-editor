@@ -1,3 +1,3 @@
-import LinkDialogContainer from './LinkDialogContainer'
+import LinkDialog from './LinkDialog'
 
-export default LinkDialogContainer
+export default LinkDialog

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Codemirror from 'react-codemirror'
 import LinkDialog from './LinkDialog'
 import ToolbarPanel from './ToolbarPanel'
@@ -8,7 +8,8 @@ import { getCurrentFormat } from './formatting'
 
 export default class MarkdownEditor extends React.Component {
   static childContextTypes = {
-    isDialogOpen: React.PropTypes.bool
+    isDialogOpen: PropTypes.bool,
+    toggleDialog: PropTypes.func
   }
 
   constructor() {
@@ -23,7 +24,10 @@ export default class MarkdownEditor extends React.Component {
   }
 
   getChildContext() {
-    return { isDialogOpen: false }
+    return {
+      isDialogOpen: false,
+      toggleDialog: this.toggleDialog
+    }
   }
 
   componentDidMount() {
@@ -53,12 +57,14 @@ export default class MarkdownEditor extends React.Component {
       lineNumbers: true,
       mode: 'markdown'
     }
-    console.log(this.context);
+
     return (
       <div>
-        <LinkDialog />
-        <ToolbarPanel
+        <LinkDialog
+          isDialogOpen={this.state.isDialogOpen}
           toggleDialog={this.toggleDialog}
+        />
+        <ToolbarPanel
           cm={this.state.cm}
           tokens={this.state.tokens}
         />

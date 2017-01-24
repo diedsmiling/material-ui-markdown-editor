@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import FlatButton from 'material-ui/FlatButton'
 
-const Button = ({ onClick, style, icon, getContext }, context) => (
+const Button = ({ onClick, style, icon, getContext }, { toggleDialog }) => (
   <FlatButton
-    onClick={(getContext ? () => (context.isDialogOpen = true) : onClick)} //eslint-disable-line
+    onClick={(getContext ? toggleDialog : onClick)} //eslint-disable-line
     style={{ ...style, minWidth: '36px' }}
     icon={icon}
   />
@@ -17,7 +17,8 @@ Button.propTypes = {
 }
 
 Button.contextTypes = {
-  isDialogOpen: PropTypes.bool.isRequired
+  isDialogOpen: PropTypes.bool.isRequired,
+  toggleDialog: PropTypes.func
 }
 
 export default Button
