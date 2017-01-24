@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import FlatButton from 'material-ui/FlatButton'
 
-const Button = ({ onClick, style, icon, getContext }, { toggleDialog }) => (
+const Button = ({ onClick, style, icon, openDialog }, { toggleDialog }) => (
   <FlatButton
-    onClick={(getContext ? toggleDialog : onClick)} //eslint-disable-line
+    onClick={(openDialog ? toggleDialog : onClick)} //eslint-disable-line
     style={{ ...style, minWidth: '36px' }}
     icon={icon}
   />
@@ -13,7 +13,7 @@ Button.propTypes = {
   icon: PropTypes.element,
   onClick: PropTypes.func,
   style: PropTypes.object, //eslint-disable-line
-  getContext: PropTypes.bool
+  openDialog: PropTypes.bool
 }
 
 Button.contextTypes = {
