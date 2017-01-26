@@ -3,12 +3,12 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import ToolbarSection from './ToolbarSection'
 import getButtonsSchema from './buttonsSchema'
 
-const ToolbarPanel = ({ cm, tokens, toggleDialog }) => (
+const ToolbarPanel = ({ cm, tokens }) => (
   <Toolbar>
     <ToolbarGroup firstChild>
       {
         getButtonsSchema(cm, tokens).map((section, i) => (
-          <ToolbarSection toggleDialog={toggleDialog} key={i} items={section} />
+          <ToolbarSection key={i} items={section} />
         ))
       }
     </ToolbarGroup>
@@ -20,7 +20,6 @@ const ToolbarPanel = ({ cm, tokens, toggleDialog }) => (
 
 
 ToolbarPanel.propTypes = {
-  toggleDialog: PropTypes.func,
   cm: PropTypes.object, //eslint-disable-line
   tokens: PropTypes.array //eslint-disable-line
 }
