@@ -33,6 +33,9 @@ export default class LinkDialog extends React.Component {
   insertLink() {
     const formatLink = setLink(this.props.cm)
     formatLink(this.state.url)
+    this.setState({
+      url: ''
+    })
     this.context.toggleDialog()
   }
 
@@ -64,6 +67,7 @@ export default class LinkDialog extends React.Component {
           id="url"
           onChange={this.onChange}
           floatingLabelText="Url"
+          value={this.state.url}
           style={{
             width: '100%'
           }}
