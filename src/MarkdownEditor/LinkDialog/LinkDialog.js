@@ -3,6 +3,8 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
+import { setLink } from '../formatting'
+
 export default class LinkDialog extends React.Component {
   static propTypes = {
     isDialogOpen: PropTypes.bool.isRequired,
@@ -29,6 +31,8 @@ export default class LinkDialog extends React.Component {
   }
 
   insertLink() {
+    const formatLink = setLink(this.props.cm)
+    formatLink(this.state.url)
     this.context.toggleDialog()
   }
 

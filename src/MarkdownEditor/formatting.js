@@ -55,6 +55,14 @@ const getRemovingPartLength = (line, signature) => (
   ['- ', '### ', '## ', '# ', '> '].includes(signature) ? signature.length : line.indexOf('.') + 2
 )
 
+const formatLink = pattern => cm => (link) => {
+  const { codeMirror } = cm
+  const text = pattern
+    .replace('##', codeMirror.getSelection())
+    .replace('$$', link)
+  codeMirror.replaceSelection(text)
+}
+
 const formatMultiline = signature => cm => () => {
   const { codeMirror } = cm
   const start = codeMirror.getCursor('start')
@@ -197,3 +205,5 @@ export const removeCode = removeInline('`')
 export const setQuote = formatMultiline('> ')
 
 export const removeQuote = removeMultiline('> ')
+
+export const setLink = formatLink('[##]($$)')
