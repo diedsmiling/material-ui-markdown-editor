@@ -17,7 +17,6 @@ Button.propTypes = {
 }
 
 Button.contextTypes = {
-  isDialogOpen: PropTypes.bool.isRequired,
   toggleDialog: PropTypes.func
 }
 

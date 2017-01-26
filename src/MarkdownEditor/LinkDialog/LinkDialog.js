@@ -9,18 +9,27 @@ export default class LinkDialog extends React.Component {
     cm: PropTypes.object.isRequired, //eslint-disable-line
   }
 
+  static contextTypes = {
+    toggleDialog: PropTypes.func
+  }
+
   constructor() {
     super()
     this.state = {
       url: ''
     }
     this.onChange = this.onChange.bind(this)
+    this.insertLink = this.insertLink.bind(this)
   }
 
   onChange(e) {
     this.setState({
       url: e.target.value
     })
+  }
+
+  insertLink() {
+    this.context.toggleDialog()
   }
 
   render() {
@@ -40,7 +49,7 @@ export default class LinkDialog extends React.Component {
             primary
             keyboardFocused
             disabled={this.state.url === ''}
-            onTouchTap={toggleDialog}
+            onTouchTap={this.insertLink}
           />
         ]}
         modal={false}

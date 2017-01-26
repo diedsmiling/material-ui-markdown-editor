@@ -63,6 +63,7 @@ export default class MarkdownEditor extends React.Component {
         <LinkDialog
           isDialogOpen={this.state.isDialogOpen}
           toggleDialog={this.toggleDialog}
+          cm={this.state.cm}
         />
         <ToolbarPanel
           cm={this.state.cm}
