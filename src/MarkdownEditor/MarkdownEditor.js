@@ -8,7 +8,6 @@ import { getCurrentFormat } from './formatting'
 
 export default class MarkdownEditor extends React.Component {
   static childContextTypes = {
-    isDialogOpen: PropTypes.bool,
     toggleDialog: PropTypes.func
   }
 
@@ -17,7 +16,8 @@ export default class MarkdownEditor extends React.Component {
     this.state = {
       tokens: [],
       code: '# Heading',
-      isDialogOpen: false
+      isDialogOpen: false,
+      isImageDialog: false
     }
     this.updateCode = this.updateCode.bind(this)
     this.toggleDialog = this.toggleDialog.bind(this)
@@ -25,7 +25,6 @@ export default class MarkdownEditor extends React.Component {
 
   getChildContext() {
     return {
-      isDialogOpen: false,
       toggleDialog: this.toggleDialog
     }
   }
@@ -37,8 +36,10 @@ export default class MarkdownEditor extends React.Component {
     this.cm.codeMirror.on('cursorActivity', this.updateTokens.bind(this))
   }
 
-  toggleDialog() {
-    this.setState({ isDialogOpen: !this.state.isDialogOpen })
+  toggleDialog(isImageDialog) {
+    return () => {
+      this.setState({ isDialogOpen: !this.state.isDialogOpen, isImageDialog })
+    }
   }
 
   updateTokens() {
@@ -62,6 +63,7 @@ export default class MarkdownEditor extends React.Component {
       <div>
         <LinkDialog
           isDialogOpen={this.state.isDialogOpen}
+          isImageDialog={this.state.isImageDialog}
           toggleDialog={this.toggleDialog}
           cm={this.state.cm}
         />

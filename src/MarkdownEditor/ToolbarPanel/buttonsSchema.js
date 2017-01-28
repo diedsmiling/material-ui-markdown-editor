@@ -136,9 +136,10 @@ const getSchema = (cm, tokens) => {
         openDialog: true
       },
       {
-        style: { ...getActiveStyle('comment') },
+        style: {},
         icon: <ImageIcon color={lightBlack} />,
-        onClick: isActiveToken('comment', tokens) ? cancelCode : formatCode
+        openDialog: true,
+        isImageDialog: true
       }
     ]
   ]

@@ -3,12 +3,13 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-import { setLink } from '../formatting'
+import { setLink, setImage } from '../formatting'
 
 export default class LinkDialog extends React.Component {
   static propTypes = {
     isDialogOpen: PropTypes.bool.isRequired,
     cm: PropTypes.object.isRequired, //eslint-disable-line
+    isImageDialog: PropTypes.bool
   }
 
   static contextTypes = {
@@ -31,12 +32,19 @@ export default class LinkDialog extends React.Component {
   }
 
   insertLink() {
-    const formatLink = setLink(this.props.cm)
-    formatLink(this.state.url)
+    const { state: { url } } = this
+    const { props: { cm } } = this
+
+    if (this.props.isImageDialog) {
+      setImage(cm)(url)
+    } else {
+      setLink(cm)(url)
+    }
+
     this.setState({
       url: ''
     })
-    this.context.toggleDialog()
+    this.context.toggleDialog()()
   }
 
   render() {
@@ -49,7 +57,7 @@ export default class LinkDialog extends React.Component {
           <FlatButton
             label="Cancel"
             primary
-            onTouchTap={toggleDialog}
+            onTouchTap={toggleDialog()}
           />,
           <FlatButton
             label="Ok"
@@ -61,7 +69,7 @@ export default class LinkDialog extends React.Component {
         ]}
         modal={false}
         open={isDialogOpen}
-        onRequestClose={toggleDialog}
+        onRequestClose={toggleDialog()}
       >
         <TextField
           id="url"

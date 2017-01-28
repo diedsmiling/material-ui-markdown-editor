@@ -16,19 +16,17 @@ const isEmptyOneLineSelection = (line, length) =>
 const getPositions = (seekedPosition, positions) =>
   positions.filter(pos => seekedPosition > pos[0] && seekedPosition < pos[1])[0]
 
-const getPlaceholderBySignature = signature => (
-  {
-    '**': 'Strong text',
-    '*': 'Emphasized text',
-    '- ': 'List item',
-    '#. ': 'List item',
-    '# ': 'Heading',
-    '## ': 'Heading',
-    '### ': 'Heading',
-    '`': 'Code',
-    '> ': 'Quote'
-  }[signature]
-)
+const getPlaceholderBySignature = signature => ({
+  '**': 'Strong text',
+  '*': 'Emphasized text',
+  '- ': 'List item',
+  '#. ': 'List item',
+  '# ': 'Heading',
+  '## ': 'Heading',
+  '### ': 'Heading',
+  '`': 'Code',
+  '> ': 'Quote'
+}[signature])
 
 const normalize = (array, signatureLength, accum = []) => {
   if (array.length) {
@@ -207,3 +205,5 @@ export const setQuote = formatMultiline('> ')
 export const removeQuote = removeMultiline('> ')
 
 export const setLink = formatLink('[##]($$)')
+
+export const setImage = formatLink('![##]($$)')
