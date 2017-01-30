@@ -32,6 +32,10 @@ import {
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
 
+const findUrlSiblingPosition = (line, pos) => (
+  line[pos - 1] === ']' ? (pos - 1) : findUrlSiblingPosition(line, pos - 1)
+)
+
 const isActiveToken = (token, tokens, index = 0) =>
   tokens.length && tokens[index] === token
 
@@ -41,11 +45,19 @@ const getStyleIfActive = tokens => token => (
     : {}
 )
 
+const urlSibling = cm => (token) => {
+  const { line, ch } = cm.codeMirror.getCursor()
+  const siblingPos = findUrlSiblingPosition(cm.codeMirror.getLine(line), ch)
+  const tokens = cm.codeMirror.getTokenTypeAt({ line, ch: siblingPos })
+  return getStyleIfActive(tokens)(token)
+}
+
 const handleHeading = schema => (e, object) => {
   schema[parseInt(object.key, 10)]()
 }
 
 const getSchema = (cm, tokens) => {
+  const getUrlStyle = urlSibling(cm)
   const getActiveStyle = getStyleIfActive(tokens)
   const formatBold = setBold(cm)
   const cancelBold = removeBold(cm)
@@ -131,7 +143,10 @@ const getSchema = (cm, tokens) => {
     ],
     [
       {
-        style: { marginLeft: 24 },
+        style: {
+          marginLeft: 24,
+          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('img') : {})
+        },
         icon: <LinkIcon color={lightBlack} />,
         openDialog: true
       },
