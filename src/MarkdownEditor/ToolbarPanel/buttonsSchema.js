@@ -33,7 +33,7 @@ import {
 import FlexWrapper from './FlexWrapper'
 
 const findUrlSiblingPosition = (line, pos) => (
-  line[pos - 1] === ']' ? (pos - 1) : findUrlSiblingPosition(line, pos - 1)
+  line[pos - 1] === ']' || pos === 0 ? (pos - 1) : findUrlSiblingPosition(line, pos - 1)
 )
 
 const isActiveToken = (token, tokens, index = 0) =>
@@ -46,10 +46,11 @@ const getStyleIfActive = tokens => token => (
 )
 
 const urlSibling = cm => (token) => {
-  const { line, ch } = cm.codeMirror.getCursor()
-  const siblingPos = findUrlSiblingPosition(cm.codeMirror.getLine(line), ch)
-  const tokens = cm.codeMirror.getTokenTypeAt({ line, ch: siblingPos })
-  return getStyleIfActive(tokens)(token)
+  const { codeMirror } = cm
+  const { line, ch } = codeMirror.getCursor()
+  const siblingPos = findUrlSiblingPosition(codeMirror.getLine(line), ch)
+  const tokens = codeMirror.getTokenTypeAt({ line, ch: siblingPos }) || ''
+  return getStyleIfActive(tokens.split(' '))(token)
 }
 
 const handleHeading = schema => (e, object) => {
@@ -145,13 +146,15 @@ const getSchema = (cm, tokens) => {
       {
         style: {
           marginLeft: 24,
-          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('img') : {})
+          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('link') : {})
         },
         icon: <LinkIcon color={lightBlack} />,
         openDialog: true
       },
       {
-        style: {},
+        style: {
+          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('image') : {})
+        },
         icon: <ImageIcon color={lightBlack} />,
         openDialog: true,
         isImageDialog: true
