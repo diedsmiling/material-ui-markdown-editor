@@ -8,7 +8,7 @@ import { setLink, setImage } from '../formatting'
 export default class LinkDialog extends React.Component {
   static propTypes = {
     isDialogOpen: PropTypes.bool.isRequired,
-    cm: PropTypes.object.isRequired, //eslint-disable-line
+    cm: PropTypes.object, //eslint-disable-line
     isImageDialog: PropTypes.bool
   }
 
