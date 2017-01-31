@@ -33,7 +33,9 @@ import {
 import FlexWrapper from './FlexWrapper'
 
 const findUrlSiblingPosition = (line, pos) => (
-  line[pos - 1] === ']' || pos === 0 ? (pos - 1) : findUrlSiblingPosition(line, pos - 1)
+  line[pos - 1] === ']' || pos === 0
+    ? (pos - 1)
+    : findUrlSiblingPosition(line, pos - 1)
 )
 
 const isActiveToken = (token, tokens, index = 0) =>
@@ -45,7 +47,7 @@ const getStyleIfActive = tokens => token => (
     : {}
 )
 
-const urlSibling = cm => (token) => {
+const getUrlStyleIfActive = cm => (token) => {
   const { codeMirror } = cm
   const { line, ch } = codeMirror.getCursor()
   const siblingPos = findUrlSiblingPosition(codeMirror.getLine(line), ch)
@@ -58,7 +60,7 @@ const handleHeading = schema => (e, object) => {
 }
 
 const getSchema = (cm, tokens) => {
-  const getUrlStyle = urlSibling(cm)
+  const getUrlStyle = getUrlStyleIfActive(cm)
   const getActiveStyle = getStyleIfActive(tokens)
   const formatBold = setBold(cm)
   const cancelBold = removeBold(cm)
