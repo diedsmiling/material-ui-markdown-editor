@@ -9,8 +9,12 @@ import Code from 'material-ui/svg-icons/action/code'
 import ImageIcon from 'material-ui/svg-icons/image/image'
 import LinkIcon from 'material-ui/svg-icons/editor/insert-link'
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
-import { lightBlack, grey400 } from 'material-ui/styles/colors'
+import { lightBlack } from 'material-ui/styles/colors'
 import {
+  getUrlStyleIfActive,
+  getStyleIfActive,
+  isActiveToken,
+  handleHeading,
   setBold,
   removeBold,
   setItalic,
@@ -31,33 +35,6 @@ import {
   removeQuote
 } from '../formatting'
 import FlexWrapper from './FlexWrapper'
-
-const findUrlSiblingPosition = (line, pos) => (
-  line[pos - 1] === ']' || pos === 0
-    ? (pos - 1)
-    : findUrlSiblingPosition(line, pos - 1)
-)
-
-const isActiveToken = (token, tokens, index = 0) =>
-  tokens.length && tokens[index] === token
-
-const getStyleIfActive = tokens => token => (
-  isActiveToken(token, tokens)
-    ? { backgroundColor: grey400 }
-    : {}
-)
-
-const getUrlStyleIfActive = cm => (token) => {
-  const { codeMirror } = cm
-  const { line, ch } = codeMirror.getCursor()
-  const siblingPos = findUrlSiblingPosition(codeMirror.getLine(line), ch)
-  const tokens = codeMirror.getTokenTypeAt({ line, ch: siblingPos }) || ''
-  return getStyleIfActive(tokens.split(' '))(token)
-}
-
-const handleHeading = schema => (e, object) => {
-  schema[parseInt(object.key, 10)]()
-}
 
 const getSchema = (cm, tokens) => {
   const getUrlStyle = getUrlStyleIfActive(cm)

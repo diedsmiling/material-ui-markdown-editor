@@ -1,3 +1,5 @@
+import { grey400 } from 'material-ui/styles/colors'
+
 const incrementPosition = (summand, position) => {
   const pos = Object.assign({}, position)
   pos.ch += summand
@@ -166,6 +168,33 @@ export const getCurrentFormat = (cm) => {
   const line = codeMirror.getLine(cursor.line)
 
   return type ? normalizeList(type.split(' '), line) : []
+}
+
+const findUrlSiblingPosition = (line, pos) => (
+  line[pos - 1] === ']' || pos === 0
+    ? (pos - 1)
+    : findUrlSiblingPosition(line, pos - 1)
+)
+
+export const isActiveToken = (token, tokens, index = 0) =>
+  tokens.length && tokens[index] === token
+
+export const getStyleIfActive = tokens => token => (
+  isActiveToken(token, tokens)
+    ? { backgroundColor: grey400 }
+    : {}
+)
+
+export const getUrlStyleIfActive = cm => (token) => {
+  const { codeMirror } = cm
+  const { line, ch } = codeMirror.getCursor()
+  const siblingPos = findUrlSiblingPosition(codeMirror.getLine(line), ch)
+  const tokens = codeMirror.getTokenTypeAt({ line, ch: siblingPos }) || ''
+  return getStyleIfActive(tokens.split(' '))(token)
+}
+
+export const handleHeading = schema => (e, object) => {
+  schema[parseInt(object.key, 10)]()
 }
 
 export const setH1 = formatMultiline('# ')
