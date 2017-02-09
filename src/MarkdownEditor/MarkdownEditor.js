@@ -65,6 +65,7 @@ export default class MarkdownEditor extends React.Component {
           isDialogOpen={this.state.isDialogOpen}
           isImageDialog={this.state.isImageDialog}
           toggleDialog={this.toggleDialog}
+          tokens={this.state.tokens}
           cm={this.state.cm}
         />
         <ToolbarPanel

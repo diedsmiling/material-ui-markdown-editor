@@ -80,11 +80,12 @@ const getSchema = (cm, tokens) => {
             style: { fontSize: 16 }
           }
         ],
-        icon:
+        icon: (
           <FlexWrapper>
             <Size color={lightBlack} />
             <NavigationExpandMoreIcon />
           </FlexWrapper>
+        )
       },
       {
         style: { ...getActiveStyle('strong') },

@@ -176,6 +176,11 @@ const findUrlSiblingPosition = (line, pos) => (
     : findUrlSiblingPosition(line, pos - 1)
 )
 
+export const getUrl = (cm) => {
+  const token = cm.getTokenAt(cm.getCursor())
+  return token.string
+}
+
 export const isActiveToken = (token, tokens, index = 0) =>
   tokens.length && tokens[index] === token
 

@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-import { setLink, setImage } from '../formatting'
+import { setLink, setImage, getUrl } from '../formatting'
 
 export default class LinkDialog extends React.Component {
   static propTypes = {
@@ -23,6 +23,12 @@ export default class LinkDialog extends React.Component {
     }
     this.onChange = this.onChange.bind(this)
     this.insertLink = this.insertLink.bind(this)
+  }
+
+  componentWillReceiveProps({ tokens, cm }) {
+    if (tokens[1] && tokens[1] === 'url') {
+      this.setState({ url: getUrl(cm.codeMirror) })
+    }
   }
 
   onChange(e) {
