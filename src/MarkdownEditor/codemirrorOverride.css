@@ -1,0 +1,31 @@
+.CodeMirror{
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+  font-size:18px;
+  line-height: 26px;
+}
+.CodeMirror-lines{
+  padding: 10px;
+}
+
+.CodeMirror-gutters{
+  height: 258px;
+  color: #212121;
+  background-color: #F5F5F5;
+}
+
+.CodeMirror-linenumber{
+  left: -15px !important;
+}
+.cm-s-default .cm-header {color: #2196F3;}
+.cm-s-default .cm-quote {color: #4CAF50;}
+
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {}
+.cm-s-default .cm-variable-2 {color: #03A9F4;}
+.cm-s-default .cm-variable-3 {color: #085;}
+.cm-s-default .cm-comment {color: #795548;}
+.cm-s-default .cm-string {color: #FF5722;}
+.cm-s-default .cm-link {color: #3F51B5;}
