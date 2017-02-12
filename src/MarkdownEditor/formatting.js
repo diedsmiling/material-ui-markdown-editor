@@ -202,6 +202,8 @@ export const handleHeading = schema => (e, object) => {
   schema[parseInt(object.key, 10)]()
 }
 
+export const isUrl = tokens => tokens[1] && tokens[1] === 'url'
+
 export const setH1 = formatMultiline('# ')
 
 export const removeH1 = removeMultiline('# ')
@@ -241,3 +243,7 @@ export const removeQuote = removeMultiline('> ')
 export const setLink = formatLink('[##]($$)')
 
 export const setImage = formatLink('![##]($$)')
+
+export const setUrl = (cm, url, isImageDialog) => (
+  isImageDialog ? setImage(cm)(url) : setLink(cm)(url)
+)

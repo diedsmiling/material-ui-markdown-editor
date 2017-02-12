@@ -3,13 +3,14 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-import { setLink, setImage, getUrl } from '../formatting'
+import { getUrl, isUrl, setUrl, updateUrl } from '../formatting'
 
 export default class LinkDialog extends React.Component {
   static propTypes = {
     isDialogOpen: PropTypes.bool.isRequired,
     cm: PropTypes.object, //eslint-disable-line
-    isImageDialog: PropTypes.bool
+    isImageDialog: PropTypes.bool,
+    tokens: PropTypes.arrayOf(PropTypes.string)
   }
 
   static contextTypes = {
@@ -39,18 +40,12 @@ export default class LinkDialog extends React.Component {
 
   insertLink() {
     const { state: { url } } = this
-    const { props: { cm } } = this
+    const { props: { cm, tokens, isImageDialog } } = this
 
-    if (this.props.isImageDialog) {
-      setImage(cm)(url)
-    } else {
-      setLink(cm)(url)
-    }
-
-    this.setState({
-      url: ''
-    })
+    this.setState({ url: '' })
     this.context.toggleDialog()()
+
+    return isUrl(tokens) ? updateUrl(cm, url, isImageDialog) : setUrl(cm, url, isImageDialog)
   }
 
   render() {
