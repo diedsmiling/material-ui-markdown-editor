@@ -198,6 +198,17 @@ export const getUrlStyleIfActive = cm => (token) => {
   return getStyleIfActive(tokens.split(' '))(token)
 }
 
+export const updateUrl = (cm, url) => {
+  const { codeMirror } = cm
+  const cursor = codeMirror.getCursor()
+  const token = codeMirror.getTokenAt(cursor)
+  codeMirror.replaceRange(
+    url,
+    position(cursor.line, token.start),
+    position(cursor.line, token.end)
+  )
+}
+
 export const handleHeading = schema => (e, object) => {
   schema[parseInt(object.key, 10)]()
 }

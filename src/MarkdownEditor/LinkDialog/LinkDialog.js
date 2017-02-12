@@ -45,7 +45,7 @@ export default class LinkDialog extends React.Component {
     this.setState({ url: '' })
     this.context.toggleDialog()()
 
-    return isUrl(tokens) ? updateUrl(cm, url, isImageDialog) : setUrl(cm, url, isImageDialog)
+    return isUrl(tokens) ? updateUrl(cm, url) : setUrl(cm, url, isImageDialog)
   }
 
   render() {
