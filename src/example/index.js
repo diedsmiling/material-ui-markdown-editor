@@ -4,7 +4,11 @@ import MarkdownEditor from '../MarkdownEditor'
 
 const Example = () => (
   <div>
-    <MarkdownEditor wrapInTheme />
+    <MarkdownEditor
+      wrapInTheme
+      title="Foo"
+      code="# Fancy markdown editor!"
+    />
   </div>
 )
 

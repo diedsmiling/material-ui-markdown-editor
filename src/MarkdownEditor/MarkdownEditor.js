@@ -12,11 +12,16 @@ export default class MarkdownEditor extends React.Component {
     toggleDialog: PropTypes.func
   }
 
+  static propTypes = {
+    code: PropTypes.string,
+    title: PropTypes.string
+  }
+
   constructor() {
     super()
     this.state = {
       tokens: [],
-      code: '# Heading',
+      code: '',
       isDialogOpen: false,
       isImageDialog: false
     }
@@ -33,7 +38,11 @@ export default class MarkdownEditor extends React.Component {
   componentDidMount() {
     /* need to trigger rerender since tooblbar is rendered before
      Codemirror textarea and we can't get it's ref at first render */
-    this.setState({ cm: this.cm }) //eslint-disable-line
+    this.setState({
+      cm: this.cm,
+      code: this.props.code,
+      title: this.props.title
+    }) //eslint-disable-line
     this.cm.codeMirror.on('cursorActivity', this.updateTokens.bind(this))
   }
 
@@ -72,6 +81,7 @@ export default class MarkdownEditor extends React.Component {
         <ToolbarPanel
           cm={this.state.cm}
           tokens={this.state.tokens}
+          title={this.state.title}
         />
         <Codemirror
           ref={((ref) => { this.cm = ref })}

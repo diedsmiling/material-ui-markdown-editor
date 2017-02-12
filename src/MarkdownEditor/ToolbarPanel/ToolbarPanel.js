@@ -3,7 +3,7 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import ToolbarSection from './ToolbarSection'
 import getButtonsSchema from './buttonsSchema'
 
-const ToolbarPanel = ({ cm, tokens }) => (
+const ToolbarPanel = ({ cm, tokens, title }) => (
   <Toolbar>
     <ToolbarGroup firstChild>
       {
@@ -13,7 +13,7 @@ const ToolbarPanel = ({ cm, tokens }) => (
       }
     </ToolbarGroup>
     <ToolbarGroup>
-      <ToolbarTitle text="Title" />
+      <ToolbarTitle text={title} />
     </ToolbarGroup>
   </Toolbar>
 )
@@ -21,7 +21,8 @@ const ToolbarPanel = ({ cm, tokens }) => (
 
 ToolbarPanel.propTypes = {
   cm: PropTypes.object, //eslint-disable-line
-  tokens: PropTypes.array //eslint-disable-line
+  tokens: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string
 }
 
 export default ToolbarPanel

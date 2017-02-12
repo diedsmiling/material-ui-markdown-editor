@@ -5,17 +5,19 @@ import MarkdownEditor from './MarkdownEditor'
 
 injectTapEventPlugin()
 
-const MarkdownEditorContainer = ({ wrapInTheme }) => (
+const MarkdownEditorContainer = ({ wrapInTheme, code, title }) => (
   wrapInTheme
   ?
     <MuiThemeProvider>
-      <MarkdownEditor />
+      <MarkdownEditor code={code} title={title} />
     </MuiThemeProvider>
   : <MarkdownEditor />
 )
 
 MarkdownEditorContainer.propTypes = {
-  wrapInTheme: PropTypes.bool
+  wrapInTheme: PropTypes.bool,
+  code: PropTypes.string,
+  title: PropTypes.string
 }
 
 export default MarkdownEditorContainer
