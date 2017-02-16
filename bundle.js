@@ -75,6 +75,22 @@
 	(0, _reactTapEventPlugin2.default)(); // eslint-disable-line
 
 
+	var GithubIcon = function GithubIcon() {
+	  return _react2.default.createElement(
+	    'a',
+	    {
+	      style: {
+	        fontSize: 24,
+	        lineHeight: '50px',
+	        color: '#ffffff',
+	        paddingRight: 24
+	      },
+	      href: 'https://github.com/diedsmiling/material-ui-markdown-editor'
+	    },
+	    _react2.default.createElement('i', { className: 'fa fa-github', 'aria-hidden': 'true' })
+	  );
+	};
+
 	var Example = function Example() {
 	  return _react2.default.createElement(
 	    _MuiThemeProvider2.default,
@@ -83,8 +99,9 @@
 	      'div',
 	      null,
 	      _react2.default.createElement(_AppBar2.default, {
+	        showMenuIconButton: false,
 	        title: 'Material-UI Markdown Editor',
-	        iconClassNameRight: 'muidocs-icon-custom-github'
+	        iconElementRight: _react2.default.createElement(GithubIcon, null)
 	      }),
 	      _react2.default.createElement(
 	        'div',
