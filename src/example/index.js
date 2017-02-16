@@ -7,13 +7,26 @@ import MarkdownEditor from '../MarkdownEditor'
 
 injectTapEventPlugin()
 
+const GithubIcon = () =>
+  <a
+    style={{
+      fontSize: 24,
+      lineHeight: '50px',
+      color: '#ffffff',
+      paddingRight: 24
+    }}
+    href="https://github.com/diedsmiling/material-ui-markdown-editor"
+  >
+    <i className="fa fa-github" aria-hidden="true" />
+  </a>
 
 const Example = () => (
   <MuiThemeProvider>
     <div>
       <AppBar
+        showMenuIconButton={false}
         title="Material-UI Markdown Editor"
-        iconClassNameRight="muidocs-icon-custom-github"
+        iconElementRight={<GithubIcon />}
       />
       <div style={{ marginTop: 50 }} >
         <MarkdownEditor
