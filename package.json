@@ -8,7 +8,8 @@
     "test:dev": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava --watch --verbose",
     "start": "npm run develop",
     "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --hot --colors --inline",
-    "build": "webpack --config webpack-prod.config.js --progress --colors --inline"
+    "build": "webpack --config webpack-prod.config.js --progress --colors --inline",
+    "build:example": "webpack --config webpack-example.config.js --progress --colors --inline"
   },
   "ava": {
     "require": [
