@@ -6,5 +6,4 @@ logs
 node_modules
 
 #bundle
-example/bundle.js
 dist
