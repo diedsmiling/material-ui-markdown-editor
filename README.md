@@ -1,4 +1,4 @@
-# Material-UI Markdown Editor
+# Material-UI Markdown Editor :writing_hand:
 This is a [React.js](https://github.com/facebook/react) Markdown editor component based on material-ui, built with [CodeMirror](https://github.com/codemirror/codemirror).  
 
 **It is alpha version yet**, any feedback is welcome!
@@ -9,7 +9,8 @@ This is a [React.js](https://github.com/facebook/react) Markdown editor componen
 To build the examples locally, run:
 ```
 npm install
-npm start```
+npm start
+```
 
 Then open [localhost:3000](http://localhost:3000/) in your browser.
 
@@ -24,7 +25,7 @@ npm test
 
 # Usage
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -46,8 +47,7 @@ ReactDOM.render(
   <Example />,
   document.getElementById('root')
 )
-
 ```
 
 *PS*:
-This [README.md](https://github.com/diedsmiling/material-ui-markdown-editor/blob/master/README.md) was written with this editor :D
+This [README.md](https://github.com/diedsmiling/material-ui-markdown-editor/blob/master/README.md) was written with this editor :new_moon_with_face:
