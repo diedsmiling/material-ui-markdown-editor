@@ -21,7 +21,11 @@ npm test
 ```
 
 # Installation
- ....
+Via npm:
+
+```
+npm i material-ui-markdown-editor
+```
 
 # Usage
 
