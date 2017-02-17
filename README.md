@@ -1,5 +1,5 @@
 # Material-UI Markdown Editor :writing_hand:
-This is a [React.js](https://github.com/facebook/react) Markdown editor component based on material-ui, built with [CodeMirror](https://github.com/codemirror/codemirror).  
+This is a [React.js](https://github.com/facebook/react) Markdown editor component based on [material-ui](https://github.com/callemall/material-ui), built with [CodeMirror](https://github.com/codemirror/codemirror).  
 
 **It is alpha version yet**, any feedback is welcome!
 
