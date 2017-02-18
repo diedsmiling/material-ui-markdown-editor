@@ -19,6 +19,7 @@ const config = {
     'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
     'react-addons-create-fragment': 'React.addons.createFragment',
     'react-addons-update': 'React.addons.update',
+    'react-tap-event-plugin': 'ReactTapEventPlugin',
     'material-ui': 'MaterialUi'
   },
   module: {
