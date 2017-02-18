@@ -5,5 +5,5 @@ logs
 # Dependency directory
 node_modules
 
-#bundle
+bundle
 dist

@@ -1,13 +1,20 @@
 const path = require('path')
+const webpack = require('webpack'); //eslint-disable-line
 
-const srcPath = path.join(__dirname, 'src')
+const srcPath = path.join(__dirname, 'src', 'MarkdownEditor')
 const buildPath = path.join(__dirname, 'dist')
 const filename = 'MarkdownEditor.js'
 const config = {
   entry: path.join(srcPath, filename),
   output: {
     path: buildPath,
-    filename
+    filename,
+    library: 'materialUiMarkdownEditor',
+    libraryTarget: 'umd'
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
   module: {
     loaders: [
@@ -25,7 +32,15 @@ const config = {
         loader: 'style-loader!css-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  ]
 }
-
 module.exports = config
