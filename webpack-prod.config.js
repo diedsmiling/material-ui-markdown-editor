@@ -14,7 +14,12 @@ const config = {
   },
   externals: {
     react: 'React',
-    'react-dom': 'ReactDOM'
+    'react-dom': 'ReactDOM',
+    'react-addons-transition-group': 'React.addons.TransitionGroup',
+    'react-addons-pure-render-mixin': 'React.addons.PureRenderMixin',
+    'react-addons-create-fragment': 'React.addons.createFragment',
+    'react-addons-update': 'React.addons.update',
+    'material-ui': 'MaterialUi'
   },
   module: {
     loaders: [
