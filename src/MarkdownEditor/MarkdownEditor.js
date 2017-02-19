@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react'
 import Codemirror from 'react-codemirror'
-import 'codemirror/lib/codemirror.css'
 import LinkDialog from './LinkDialog'
 import ToolbarPanel from './ToolbarPanel'
 import codemirrorMd from 'codemirror/mode/markdown/markdown' // eslint-disable-line
-import './codemirrorOverride.css'
 import { getCurrentFormat } from './formatting'
 
 export default class MarkdownEditor extends React.Component {
