@@ -1,6 +1,6 @@
 {
   "name": "material-ui-markdown-editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React.js Markdown editor component based on material-ui",
   "main": "dist/MarkdownEditor/index.js",
   "module": "src/MarkdownEditor/index.js",
