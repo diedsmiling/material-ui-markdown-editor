@@ -1,16 +1,17 @@
 {
   "name": "material-ui-markdown-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React.js Markdown editor component based on material-ui",
-  "main": "dist/MarkdownEditor.js",
+  "main": "dist/MarkdownEditor/index.js",
   "module": "src/MarkdownEditor/index.js",
   "scripts": {
     "test": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build:babel",
     "test:dev": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava --watch --verbose",
     "start": "npm run develop",
     "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --hot --colors --inline",
     "build": "webpack --config webpack-prod.config.js --progress --colors --inline",
+    "build:babel": "babel ./src --out-dir ./dist --ignore example",
     "build:example": "webpack --config webpack-example.config.js --progress --colors --inline"
   },
   "ava": {
