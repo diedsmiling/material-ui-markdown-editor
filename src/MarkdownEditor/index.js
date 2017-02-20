@@ -1,3 +1,3 @@
-import MarkdownEditor from './MarkdownEditorContainer'
+import MarkdownEditor from './MarkdownEditor'
 
 export default MarkdownEditor
