@@ -36,7 +36,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MarkdownEditor from 'material-ui-markdown-editor'
 import 'codemirror/lib/codemirror.css' // import codemirror styles
-import 'material-ui-markdown-editor/dist/codemirrorOverride.css' // impor editor styles
+import 'material-ui-markdown-editor/dist/MarkdownEditor/codemirrorOverride.css' // impor editor styles
 
 
 injectTapEventPlugin()
