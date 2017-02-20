@@ -29,6 +29,9 @@ npm i material-ui-markdown-editor
 
 # Usage
 
+*NOTE*: Codemirror styles and editor styles should be included in the project with global selectors. In the following example,
+styles are included with the help of [css modules](https://github.com/css-modules/css-modules):
+
 ```js
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -37,7 +40,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import MarkdownEditor from 'material-ui-markdown-editor'
 import 'codemirror/lib/codemirror.css' // import codemirror styles
 import 'material-ui-markdown-editor/dist/MarkdownEditor/codemirrorOverride.css' // impor editor styles
-
 
 injectTapEventPlugin()
 
