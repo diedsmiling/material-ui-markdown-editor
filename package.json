@@ -6,7 +6,7 @@
   "module": "src/MarkdownEditor/index.js",
   "scripts": {
     "test": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava",
-    "prepublish": "npm run build:babel",
+    "prepublish": "npm run build:babel && cp src/MarkdownEditor/codemirrorOverride.css dist/MarkdownEditor/codemirrorOverride.css ",
     "test:dev": "CONFIG=$(pwd)/webpack-ava.config.js BABEL_DISABLE_CACHE=1 NODE_ENV=AVA ava --watch --verbose",
     "start": "npm run develop",
     "develop": "webpack-dev-server --config webpack-dev-server.config.js --progress --hot --colors --inline",
