@@ -176,6 +176,11 @@ const findUrlSiblingPosition = (line, pos) => (
     : findUrlSiblingPosition(line, pos - 1)
 )
 
+export const isNotUrlBorder = (cm) => {
+  const token = cm.getTokenAt(cm.getCursor())
+  return token.string !== '(' && token.string !== ')'
+}
+
 export const getUrl = (cm) => {
   const token = cm.getTokenAt(cm.getCursor())
   return token.string

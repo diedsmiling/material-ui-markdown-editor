@@ -14,6 +14,7 @@ import {
   getUrlStyleIfActive,
   getStyleIfActive,
   isActiveToken,
+  isNotUrlBorder,
   handleHeading,
   setBold,
   removeBold,
@@ -126,14 +127,14 @@ const getSchema = (cm, tokens) => {
       {
         style: {
           marginLeft: 24,
-          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('link') : {})
+          ...(isActiveToken('url', tokens, 1) && isNotUrlBorder(cm.codeMirror) ? getUrlStyle('link') : {})
         },
         icon: <LinkIcon color={lightBlack} />,
         openDialog: true
       },
       {
         style: {
-          ...(isActiveToken('url', tokens, 1) ? getUrlStyle('image') : {})
+          ...(isActiveToken('url', tokens, 1) && isNotUrlBorder(cm.codeMirror) ? getUrlStyle('image') : {})
         },
         icon: <ImageIcon color={lightBlack} />,
         openDialog: true,
