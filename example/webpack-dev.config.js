@@ -1,14 +1,12 @@
-const path = require('path')
+const path = require('path');
 
-const srcPath = path.join(__dirname, 'src', 'example')
-const buildPath = path.join(__dirname, 'example')
+const srcPath = path.join(__dirname, 'src');
+const buildPath = path.join(__dirname, 'dist');
+
+console.log(srcPath);
 
 const config = {
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack/hot/only-dev-server',
-    path.join(srcPath, 'index.js')
-  ],
+  entry: path.join(srcPath, 'index.js'),
   output: {
     path: buildPath,
     filename: 'bundle.js'
@@ -23,7 +21,7 @@ const config = {
   },
   devtool: 'source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -40,4 +38,4 @@ const config = {
   }
 }
 
-module.exports = config
+module.exports = config;

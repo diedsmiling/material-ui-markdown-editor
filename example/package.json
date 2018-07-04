@@ -1,0 +1,18 @@
+{
+  "name": "material-ui-markdown-editor-example",
+  "version": "1.0.0",
+  "description": "Example of material-ui-markdown-editor usage",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack-prod.config.js --progress --colors --inline",
+    "dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexandr Lazarev <diedsmiling@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.14.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  }
+}

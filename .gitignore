@@ -1,9 +1,2 @@
-# Logs
-logs
-*.log
-
-# Dependency directory
+.idea
 node_modules
-
-bundle
-dist
