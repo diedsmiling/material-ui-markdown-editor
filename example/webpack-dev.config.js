@@ -4,6 +4,7 @@ const srcPath = path.join(__dirname, 'src');
 const buildPath = path.join(__dirname, 'dist');
 
 console.log(srcPath);
+console.log('------', buildPath);
 
 const config = {
   entry: path.join(srcPath, 'index.js'),
@@ -12,27 +13,33 @@ const config = {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: 'example',
-    devtool: 'eval',
-    hot: true,
+    hot: false,
     inline: true,
     port: 3000,
-    outputPath: buildPath
+    contentBase: buildPath,
   },
   devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
-        loaders: [
-          'react-hot-loader/webpack',
-          'babel?presets[]=react,presets[]=es2015,plugins[]=babel-plugin-transform-class-properties'
+        use: [
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: ['react', 'es2015'],
+              plugins: ['babel-plugin-transform-class-properties']
+            }
+          }
         ]
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: [
+          {
+            loader: 'style-loader!css-loader'
+          }
+        ]
       }
     ]
   }
