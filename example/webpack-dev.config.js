@@ -19,19 +19,12 @@ const config = {
     contentBase: buildPath,
   },
   devtool: 'source-map',
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            query: {
-              presets: ['react', 'es2015'],
-              plugins: ['babel-plugin-transform-class-properties']
-            }
-          }
-        ]
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,

@@ -8,9 +8,17 @@
     "dev": "webpack-dev-server --config webpack-dev.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
   "author": "Alexandr Lazarev <diedsmiling@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

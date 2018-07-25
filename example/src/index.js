@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+import MarkdownEditor from '../../dist'
 
 const Example = () => (
-  <div>Test Example</div>
+  <MarkdownEditor />
 );
 
 ReactDOM.render(
