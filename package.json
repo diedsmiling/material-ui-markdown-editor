@@ -22,6 +22,7 @@
     "@types/react": "^16.4.7",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "react": "^16.4.1",
+    "react-dom": "^16.5.2",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
     "typescript": "^2.9.2"
