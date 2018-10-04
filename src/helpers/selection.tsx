@@ -1,8 +1,49 @@
-export default function restoreSelection(node: Node, start: number, end: number) {
-  console.log(node.childNodes);
-  console.log(start);
-  console.log(end);
+import { Selection, SelectionSpy } from '../types'
+//
+// const seek = limit => (spy: sele, )
+//
+// const seekForEnd = seek('start');
+
+function traverseAndRestore(node: Node, selectionSpy: SelectionSpy, selection: Selection): SelectionSpy {
+    const spy = { ...selectionSpy }
+    return [ ...node.childNodes].reduce((acc: SelectionSpy, node: Node, i: number) => {
+        console.log('aaaa', acc);
+        if (node.nodeType === Node.TEXT_NODE) {
+            const res = {
+             startFound: true,
+             foundEnd: true,
+             currentChar: acc.currentChar + node.textContent.length
+            }
+            console.log(res);
+            console.log(node.textContent.length);
+            return res;
+        } else {
+          return traverseAndRestore(node, spy, selection);
+        }
+    },  {
+        startFound: false,
+        foundEnd: false,
+        currentChar: 0
+    });
 }
+
+export function restoreSelection(node: Node, selection: Selection) {
+  return traverseAndRestore(node, { startFound: false, foundEnd: false, currentChar: 0 }, selection)
+}
+
+export function getSelection(node: Node) : Selection {
+  const range = window.getSelection().getRangeAt(0);
+  const preSelectionRange = range.cloneRange();
+  preSelectionRange.selectNodeContents(node);
+  preSelectionRange.setEnd(range.startContainer, range.startOffset);
+  const start = preSelectionRange.toString().length;
+
+  return {
+    startOffset: start,
+    endOffset: start + range.toString().length
+  }
+}
+
 
 /*
 var saveSelection, restoreSelection;

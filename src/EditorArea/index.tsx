@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { Selection} from "../types";
 import sanitize from '../helpers/sanitize';
-import restoreSelection from '../helpers/restoreSelection';
+import { restoreSelection, getSelection } from '../helpers/selection';
 
 interface IEditorAreaProps {
   content?: string;
@@ -28,16 +29,19 @@ export default class EditorArea extends React.Component<IEditorAreaProps, IEdito
     };
   }
 
+  updateSelection() {
+    this.setState({ ...getSelection(this.htmlEl)})
+  }
+
   updateContent = (evt: React.SyntheticEvent<any>) => {
-    const { startOffset, endOffset } = document.getSelection().getRangeAt(0);
-    console.log(startOffset, endOffset);
-    this.setState({ startOffset, endOffset, content: this.htmlEl.textContent });
+    this.updateSelection();
+    this.setState({content: this.htmlEl.textContent });
   }
 
   componentDidUpdate() {
-    console.log(ReactDOM.findDOMNode(this.htmlEl).childNodes);
     const textNode = ReactDOM.findDOMNode(this.htmlEl)
-    restoreSelection(textNode, this.state.startOffset, this.state.endOffset);
+    const { startOffset, endOffset } = this.state;
+    restoreSelection(textNode, { startOffset, endOffset });
   }
 
   public render() {
