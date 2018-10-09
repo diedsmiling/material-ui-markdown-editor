@@ -2,33 +2,50 @@ import { Selection, SelectionSpy } from '../types'
 //
 // const seek = limit => (spy: sele, )
 //
-// const seekForEnd = seek('start');
 
-function traverseAndRestore(node: Node, selectionSpy: SelectionSpy, selection: Selection): SelectionSpy {
-    const spy = { ...selectionSpy }
-    return [ ...node.childNodes].reduce((acc: SelectionSpy, node: Node, i: number) => {
-        console.log('aaaa', acc);
+//function seekForStart(currentChar: number, nodeLength: number, )
+
+function traverseAndRestore(node: Node, selectionSpy: SelectionSpy, selection: Selection, range: Range): SelectionSpy {
+    return [ ...node.childNodes].reduce((acc: SelectionSpy, node: Node) => {
         if (node.nodeType === Node.TEXT_NODE) {
-            const res = {
-             startFound: true,
-             foundEnd: true,
-             currentChar: acc.currentChar + node.textContent.length
+            let { startFound, currentChar} = acc;
+            const nextChar = currentChar + node.textContent.length;
+
+            if (
+                !startFound &&
+                selection.startOffset >= currentChar &&
+                selection.startOffset <= nextChar
+            ) {
+                startFound = true;
+                console.log('start', selection.startOffset - currentChar)
+                range.setStart(node, selection.startOffset - currentChar);
             }
-            console.log(res);
-            console.log(node.textContent.length);
-            return res;
+
+            if (startFound && selection.endOffset >= currentChar&& selection.endOffset <= nextChar) {
+                range.setEnd(node, selection.endOffset - currentChar);
+                console.log('end', selection.endOffset - currentChar);
+            }
+
+            return {
+                startFound,
+                currentChar: nextChar
+            };
         } else {
-          return traverseAndRestore(node, spy, selection);
+          return traverseAndRestore(node, acc, selection, range);
         }
-    },  {
-        startFound: false,
-        foundEnd: false,
-        currentChar: 0
-    });
+    },  selectionSpy);
 }
 
 export function restoreSelection(node: Node, selection: Selection) {
-  return traverseAndRestore(node, { startFound: false, foundEnd: false, currentChar: 0 }, selection)
+  const range = document.createRange();
+  range.setStart(node, 0);
+  range.collapse(true);
+  return traverseAndRestore(
+      node,
+      { startFound: false, currentChar: 0 },
+      selection,
+      range
+  )
 }
 
 export function getSelection(node: Node) : Selection {

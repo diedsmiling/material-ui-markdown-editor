@@ -5,6 +5,5 @@ export type Selection = {
 
 export type SelectionSpy = {
   startFound: boolean,
-  foundEnd: boolean,
   currentChar: number
 }
