@@ -30,12 +30,12 @@ export default class EditorArea extends React.Component<IEditorAreaProps, IEdito
   }
 
   updateSelection() {
-    this.setState({ ...getSelection(this.htmlEl)})
+    this.setState({ ...getSelection(this.htmlEl) });
   }
 
   updateContent = (evt: React.SyntheticEvent<any>) => {
     this.updateSelection();
-    this.setState({content: this.htmlEl.textContent });
+    this.setState({ content: this.htmlEl.textContent });
   }
 
   componentDidUpdate() {
