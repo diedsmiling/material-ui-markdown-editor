@@ -15,12 +15,33 @@ interface IEditorAreaState {
   endOffset?: number;
 }
 
+
+const newline = '\n';
+
+function nl2br(text) {
+    if (typeof text === 'number') {
+        return text;
+    } else if (typeof text !== 'string') {
+        return '';
+    }
+
+    let lines = text.split(newline);
+    return lines.map(function(line, i) {
+        return (
+            <span key={i}>
+                {line}
+                <br/>
+            </span>
+        );
+    });
+}
+
 export default class EditorArea extends React.Component<IEditorAreaProps, IEditorAreaState> {
   static defaultProps: IEditorAreaProps = {
     content: '',
   };
 
-  htmlEl: Element | null = null;
+  htmlEl: HTMLElement | null = null;
 
   constructor(props: IEditorAreaProps) {
     super(props);
@@ -35,7 +56,7 @@ export default class EditorArea extends React.Component<IEditorAreaProps, IEdito
 
   updateContent = (evt: React.SyntheticEvent<any>) => {
     this.updateSelection();
-    this.setState({ content: this.htmlEl.textContent });
+    this.setState({ content: this.htmlEl.innerText });
   }
 
   componentDidUpdate() {
@@ -47,6 +68,7 @@ export default class EditorArea extends React.Component<IEditorAreaProps, IEdito
   public render() {
     return (
       <div
+        style={{whiteSpace: "pre-line"}}
         ref={e => this.htmlEl = e}
         onInput={this.updateContent}
         contentEditable
@@ -56,38 +78,3 @@ export default class EditorArea extends React.Component<IEditorAreaProps, IEdito
   }
 }
 
-// const restoreSelection = function (containerEl, savedSel) {
-//   let charIndex = 0;
-//   const range = document.createRange();
-//   range.setStart(containerEl, 0);
-//   range.collapse(true);
-//   const nodeStack = [containerEl];
-//   let node;
-//   let foundStart = false;
-//   let stop = false;
-//
-//   while (!stop && (node = nodeStack.pop())) {
-//     console.log(node.nodeType)
-//     if (node.nodeType === 3) {
-//       const nextCharIndex = charIndex + node.length;
-//       if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
-//         range.setStart(node, savedSel.start - charIndex);
-//         foundStart = true;
-//       }
-//       if (foundStart && savedSel.end >= charIndex && savedSel.end <= nextCharIndex) {
-//         range.setEnd(node, savedSel.end - charIndex);
-//         stop = true;
-//       }
-//       charIndex = nextCharIndex;
-//     } else {
-//       let i = node.childNodes.length;
-//       while (i--) {
-//         nodeStack.push(node.childNodes[i]);
-//       }
-//     }
-//   }
-//
-//   const sel = window.getSelection();
-//   sel.removeAllRanges();
-//   sel.addRange(range);
-// }
